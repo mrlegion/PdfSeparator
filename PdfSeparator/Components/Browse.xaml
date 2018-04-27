@@ -1,0 +1,33 @@
+﻿<UserControl x:Class="PdfSeparator.Components.Browse"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PdfSeparator.Components"
+             xmlns:viewmodel="clr-namespace:PdfSeparator.ViewModels"
+             mc:Ignorable="d" 
+             d:DesignHeight="70" d:DesignWidth="400">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Styles/UserDictionary.xaml"></ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid d:DataContext="{d:DesignInstance viewmodel:MainViewModel}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+        
+        <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Content="Select or drop pdf file:" Style="{StaticResource TitleStyle}"/>
+
+        <TextBox Grid.Column="0" Grid.Row="1" Style="{StaticResource BrowseTextBox}" Text="{Binding FileOutPath}"/>
+        <Button Grid.Column="1" Grid.Row="1" Content="Выбрать..." Style="{StaticResource BrowseButtonStyle}" Command="{Binding BrowseCommand}"/>
+    </Grid>
+</UserControl>

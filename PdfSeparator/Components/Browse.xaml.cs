@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace PdfSeparator
+namespace PdfSeparator.Components
 {
     /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
+    /// Логика взаимодействия для Browse.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class Browse : UserControl
     {
-        public MainWindow()
+        public Browse()
         {
             InitializeComponent();
         }
