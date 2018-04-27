@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -7,6 +8,7 @@ using System.Threading.Tasks;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using System.Windows;
 using MVVMBase;
+using PdfSeparator.Common;
 
 namespace PdfSeparator.ViewModels
 {
@@ -19,9 +21,15 @@ namespace PdfSeparator.ViewModels
 
         private string _fileOutPath;
 
+        private ObservableCollection<FilterItem> _filters = new ObservableCollection<FilterItem>();
+
+        public ReadOnlyObservableCollection<FilterItem> Filters => new ReadOnlyObservableCollection<FilterItem>(_filters);
+
         public DelegateCommand<object> CloseWindowCommand { get; }
 
         public DelegateCommand BrowseCommand { get; }
+
+        public DelegateCommand<object> DeleteFilterCommand { get; }
 
         public string FileOutPath
         {
@@ -33,8 +41,24 @@ namespace PdfSeparator.ViewModels
             }
         }
 
+        public DelegateCommand AddFilterCommand { get; }
+
         public MainViewModel()
         {
+            AddFilterCommand = new DelegateCommand(() =>
+            {
+                _filters.Add(new FilterItem());
+            });
+
+            DeleteFilterCommand = new DelegateCommand<object>(o =>
+            {
+                var del = (o as FrameworkElement)?.DataContext as FilterItem;
+                if (Filters.Contains(del))
+                {
+                    _filters.Remove(del);
+                }
+            });
+
             BrowseCommand = new DelegateCommand(() =>
             {
                 // Инициализация домашнего пути. если требуется
@@ -57,6 +81,7 @@ namespace PdfSeparator.ViewModels
                     FileOutPath = dialog.FileName;
                 }
             });
+
             CloseWindowCommand = new DelegateCommand<object>(obj => { if (obj is Window window) window.Close(); });
         }
     }
