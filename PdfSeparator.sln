@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.27428.2037
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PdfSeparator", "PdfSeparator\PdfSeparator.csproj", "{AE6564D0-CE69-433E-9ABA-60EA572B91C4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestApp", "TestApp\TestApp.csproj", "{B685194B-338F-4B4E-91FA-47383913EC06}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{AE6564D0-CE69-433E-9ABA-60EA572B91C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AE6564D0-CE69-433E-9ABA-60EA572B91C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AE6564D0-CE69-433E-9ABA-60EA572B91C4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B685194B-338F-4B4E-91FA-47383913EC06}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B685194B-338F-4B4E-91FA-47383913EC06}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B685194B-338F-4B4E-91FA-47383913EC06}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B685194B-338F-4B4E-91FA-47383913EC06}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
