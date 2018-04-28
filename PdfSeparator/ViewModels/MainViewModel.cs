@@ -14,42 +14,83 @@ namespace PdfSeparator.ViewModels
 {
     public class MainViewModel : BindableBase
     {
+        #region Fields
+
         /// <summary>
         /// Родительский каталог выбранной директории
         /// </summary>
         private string _parent;
 
+        /// <summary>
+        /// Путь до выбранного файла
+        /// </summary>
         private string _fileOutPath;
 
-        private ObservableCollection<FilterItem> _filters = new ObservableCollection<FilterItem>();
+        /// <summary>
+        /// Колекция фильтров, которые необходимо применить к сортрировке
+        /// </summary>
+        private readonly ObservableCollection<FilterItem> _filters;
 
-        public ReadOnlyObservableCollection<FilterItem> Filters => new ReadOnlyObservableCollection<FilterItem>(_filters);
+        #endregion
 
-        public DelegateCommand<object> CloseWindowCommand { get; }
+        #region Properties
 
-        public DelegateCommand BrowseCommand { get; }
-
-        public DelegateCommand<object> DeleteFilterCommand { get; }
-
+        /// <summary>
+        /// Получение или установка основного пути до файла
+        /// </summary>
         public string FileOutPath
         {
             get => _fileOutPath;
             set
             {
-                _fileOutPath = File.Exists(value) ? value : throw new FileNotFoundException();
-                OnPropertyChanged(nameof(FileOutPath));
+                if (File.Exists(value)) SetProperty(ref _fileOutPath, value);
+                else throw new FileNotFoundException();
             }
         }
 
+        /// <summary>
+        /// Получение колекции фильтров сортировки
+        /// </summary>
+        public ReadOnlyObservableCollection<FilterItem> Filters => new ReadOnlyObservableCollection<FilterItem>(_filters);
+
+        #endregion
+
+        #region Commands
+
+        /// <summary>
+        /// Получение команды добавления строки фильтров
+        /// </summary>
         public DelegateCommand AddFilterCommand { get; }
+
+        /// <summary>
+        /// Получение команды для удаления строки фильтров
+        /// </summary>
+        public DelegateCommand<object> DeleteFilterCommand { get; }
+
+        /// <summary>
+        /// Получение команды для закрытия формы и приложения
+        /// </summary>
+        public DelegateCommand<object> CloseWindowCommand { get; }
+
+        /// <summary>
+        /// Получение команды для открытия диалогового окна выбора файла
+        /// </summary>
+        public DelegateCommand BrowseCommand { get; }
+
+        #endregion
+
+        #region Construct
 
         public MainViewModel()
         {
-            AddFilterCommand = new DelegateCommand(() =>
-            {
-                _filters.Add(new FilterItem());
-            });
+            // Инициализация коллекции фильтров
+            _filters = new ObservableCollection<FilterItem>();
 
+            // Инициализация команд
+            // Создание комнды добавления нового фильтра в колекцию
+            AddFilterCommand = new DelegateCommand(() => _filters.Add(new FilterItem()));
+
+            // Создание комнды удаления фильтра из колекции
             DeleteFilterCommand = new DelegateCommand<object>(o =>
             {
                 var del = (o as FrameworkElement)?.DataContext as FilterItem;
@@ -59,6 +100,7 @@ namespace PdfSeparator.ViewModels
                 }
             });
 
+            // Создание комнды для открытия диалогового окна выбора файла
             BrowseCommand = new DelegateCommand(() =>
             {
                 // Инициализация домашнего пути. если требуется
@@ -82,7 +124,10 @@ namespace PdfSeparator.ViewModels
                 }
             });
 
+            // Создание комнды для закрытия формы и приложения
             CloseWindowCommand = new DelegateCommand<object>(obj => { if (obj is Window window) window.Close(); });
         }
+
+        #endregion
     }
 }
