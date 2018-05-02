@@ -16,22 +16,44 @@ namespace PdfSeparator.Models
         /// <summary>
         /// Компонент управления ведением журнала событий в приложении
         /// </summary>
-        private Logger _logger;
+        private readonly Logger _logger;
+
+        /// <summary>
+        /// Компонент управления pdf файлами
+        /// </summary>
+        private readonly PdfComponet _pdf;
+
+        /// <summary>
+        /// Компонент управления применением фильтров для колекции страниц
+        /// </summary>
+        private readonly FilterComponent _filter;
 
         #endregion
 
+        #region Construct
+
+        public ControllerModel()
+        {
+            // Инициализация компонентов и передача ссылки на посредника
+            _logger = new Logger() { Controller = this };
+            _pdf = new PdfComponet() { Controller = this };
+            _filter = new FilterComponent() { Controller = this }; 
+        }
+
+        #endregion
 
         #region Impliment IController
 
         public void Notify(IComponent component, Events events, string message)
         {
-            
+            throw new NotImplementedException();
         }
 
-        public void Log(string message)
-        {
-            
-        }
+        /// <summary>
+        /// Внесение информации в журнал событий
+        /// </summary>
+        /// <param name="message">Сообщение</param>
+        public void Log(string message) => _logger.Logging(message: message);
 
         #endregion
     }

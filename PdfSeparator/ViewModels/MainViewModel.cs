@@ -7,8 +7,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using System.Windows;
-using MVVMBase;
 using PdfSeparator.Common;
+using Prism.Commands;
+using Prism.Mvvm;
 
 namespace PdfSeparator.ViewModels
 {
