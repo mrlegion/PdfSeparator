@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using System.Windows;
-using PdfSeparator.Common;
+using PdfSeparator.Model.Common;
 using Prism.Commands;
 using Prism.Mvvm;
 

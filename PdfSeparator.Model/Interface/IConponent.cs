@@ -1,4 +1,4 @@
-﻿namespace PdfSeparator.Interface
+﻿namespace PdfSeparator.Model.Interface
 {
     public interface IComponent
     {

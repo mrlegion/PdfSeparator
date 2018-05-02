@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PdfSeparator", "PdfSeparato
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestApp", "TestApp\TestApp.csproj", "{B685194B-338F-4B4E-91FA-47383913EC06}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{D7885814-AA8A-497B-879C-6A6FDFA0CAA8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PdfSeparator.Model", "PdfSeparator.Model\PdfSeparator.Model.csproj", "{56502403-4313-4B0C-BCD5-65FB2AB4D21C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,10 @@ Global
 		{B685194B-338F-4B4E-91FA-47383913EC06}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B685194B-338F-4B4E-91FA-47383913EC06}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B685194B-338F-4B4E-91FA-47383913EC06}.Release|Any CPU.Build.0 = Release|Any CPU
+		{56502403-4313-4B0C-BCD5-65FB2AB4D21C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56502403-4313-4B0C-BCD5-65FB2AB4D21C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56502403-4313-4B0C-BCD5-65FB2AB4D21C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56502403-4313-4B0C-BCD5-65FB2AB4D21C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

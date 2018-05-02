@@ -1,6 +1,6 @@
-﻿using PdfSeparator.Common;
+﻿using PdfSeparator.Model.Common;
 
-namespace PdfSeparator.Interface
+namespace PdfSeparator.Model.Interface
 {
     public interface IController
     {

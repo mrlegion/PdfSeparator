@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using PdfSeparator.Common;
-using PdfSeparator.Interface;
-using PdfSeparator.Models.Components;
+using PdfSeparator.Model.Interface;
+using PdfSeparator.Model.Common;
+using PdfSeparator.Model.Components;
 
-namespace PdfSeparator.Models
+namespace PdfSeparator.Model
 {
     public class ControllerModel : IController
     {

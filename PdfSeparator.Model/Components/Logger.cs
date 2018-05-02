@@ -1,8 +1,8 @@
 ﻿using System;
-using PdfSeparator.Interface;
+using PdfSeparator.Model.Interface;
 using Prism.Mvvm;
 
-namespace PdfSeparator.Models.Components
+namespace PdfSeparator.Model.Components
 {
     public class Logger : BindableBase, ILogger
     {

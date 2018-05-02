@@ -114,24 +114,12 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Common\Events.cs" />
-    <Compile Include="Common\FilterItem.cs" />
     <Compile Include="Components\Browse.xaml.cs">
       <DependentUpon>Browse.xaml</DependentUpon>
     </Compile>
     <Compile Include="Components\Filters.xaml.cs">
       <DependentUpon>Filters.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Interface\IChapter.cs" />
-    <Compile Include="Interface\IConponent.cs" />
-    <Compile Include="Interface\IController.cs" />
-    <Compile Include="Interface\IFilter.cs" />
-    <Compile Include="Interface\ILogger.cs" />
-    <Compile Include="Interface\IPdf.cs" />
-    <Compile Include="Models\Components\FilterComponent.cs" />
-    <Compile Include="Models\Components\Logger.cs" />
-    <Compile Include="Models\Components\PdfComponet.cs" />
-    <Compile Include="Models\ControllerModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="Views\Main.xaml.cs">
       <DependentUpon>Main.xaml</DependentUpon>
@@ -182,7 +170,12 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\PdfSeparator.Model\PdfSeparator.Model.csproj">
+      <Project>{56502403-4313-4b0c-bcd5-65fb2ab4d21c}</Project>
+      <Name>PdfSeparator.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <Content Include="MVVMBase.dll" />
   </ItemGroup>
