@@ -6,5 +6,14 @@ namespace PdfSeparator.Model.Interface
     {
         void Notify(IComponent component, Events events, string message);
         void Log(string message);
+
+        bool IsOpen { get; }
+        bool IsClose { get; }
+
+        void Open(string file);
+        void Close();
+
+        void SafeLog();
+        void SafeLog(string directory);
     }
 }

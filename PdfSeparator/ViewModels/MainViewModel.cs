@@ -7,7 +7,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using System.Windows;
+using PdfSeparator.Model;
 using PdfSeparator.Model.Common;
+using PdfSeparator.Model.Interface;
 using Prism.Commands;
 using Prism.Mvvm;
 
@@ -31,6 +33,8 @@ namespace PdfSeparator.ViewModels
         /// Колекция фильтров, которые необходимо применить к сортрировке
         /// </summary>
         private readonly ObservableCollection<FilterItem> _filters;
+
+        private IController _model;
 
         #endregion
 
@@ -87,6 +91,10 @@ namespace PdfSeparator.ViewModels
             // Инициализация коллекции фильтров
             _filters = new ObservableCollection<FilterItem>();
 
+            // Инициализация бизнес модели
+            _model = new ControllerModel();
+            ((ControllerModel) _model).PropertyChanged += (sender, args) => RaisePropertyChanged(args.PropertyName);
+
             // Инициализация команд
             // Создание комнды добавления нового фильтра в колекцию
             AddFilterCommand = new DelegateCommand(() => _filters.Add(new FilterItem()));
@@ -123,6 +131,8 @@ namespace PdfSeparator.ViewModels
                     _parent = Path.GetDirectoryName(dialog.FileName);
                     FileOutPath = dialog.FileName;
                 }
+
+                _model.Open(FileOutPath);
             });
 
             // Создание комнды для закрытия формы и приложения

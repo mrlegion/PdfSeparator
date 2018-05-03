@@ -38,7 +38,7 @@ namespace Logger.Component.Test
 
             var exist = File.Exists(Path.Combine(dir, "Log.txt"));
 
-            Assert.True(exist);
+            Assert.IsTrue(exist);
         }
 
         [Test]

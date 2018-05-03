@@ -1,32 +1,42 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using PdfSeparator.Model.Interface;
 using PdfSeparator.Model.Common;
 using PdfSeparator.Model.Components;
+using Prism.Mvvm;
 
 namespace PdfSeparator.Model
 {
-    public class ControllerModel : IController
+    public class ControllerModel : BindableBase, IController
     {
         #region Link to all components
 
         /// <summary>
         /// Компонент управления ведением журнала событий в приложении
         /// </summary>
-        private readonly Logger _logger;
+        private readonly ILogger _logger;
 
         /// <summary>
         /// Компонент управления pdf файлами
         /// </summary>
-        private readonly PdfComponet _pdf;
+        private readonly IPdf _pdf;
 
         /// <summary>
         /// Компонент управления применением фильтров для колекции страниц
         /// </summary>
-        private readonly FilterComponent _filter;
+        private readonly IFilter _filter;
+
+        #endregion
+
+        #region Properties
+
+        public bool IsOpen => _pdf.IsOpen;
+
+        public bool IsClose => _pdf.IsClose;
 
         #endregion
 
@@ -54,6 +64,32 @@ namespace PdfSeparator.Model
         /// </summary>
         /// <param name="message">Сообщение</param>
         public void Log(string message) => _logger.Logging(message: message);
+
+        public void Open(string file)
+        {
+            _pdf.Open(file: file);
+        }
+
+        public void Close()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SafeLog()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SafeLog(string directory)
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
+
+        #region Control methods
+
+        
 
         #endregion
     }
