@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.IO;
 using NUnit.Framework;
 using PdfSeparator.Model.Interface;
 
@@ -11,9 +7,62 @@ namespace Logger.Component.Test
     [TestFixture]
     public class LoggerComponentTest
     {
-        public void Logging_RecordTest()
+        private ILogger _logger;
+
+        [SetUp]
+        public void Init()
         {
-            ILogger logger = new PdfSeparator.Model.Components.Logger();
+            _logger = new PdfSeparator.Model.Components.Logger();
+        }
+
+        [Test]
+        public void Logger_Logging()
+        {
+            _logger.Logging(message: "This a test message about Logger_RecordTest()");
+
+            Assert.IsNotEmpty(_logger.Log);
+        }
+
+        [Test]
+        public void Logger_SaveLogToFile()
+        {
+            _logger.Logging(message: "This a test message about Logger_SaveLogToFile()");
+            _logger.Logging(message: "This a test message about Logger_SaveLogToFile()");
+            _logger.Logging(message: "This a test message about Logger_SaveLogToFile()");
+            _logger.Logging(message: "This a test message about Logger_SaveLogToFile()");
+
+            var location = System.Reflection.Assembly.GetExecutingAssembly().Location;
+            var dir = System.IO.Path.GetDirectoryName(location);
+
+            _logger.SaveLogToFile();
+
+            var exist = File.Exists(Path.Combine(dir, "Log.txt"));
+
+            Assert.True(exist);
+        }
+
+        [Test]
+        public void Logger_SaveLogToFile_WithCustomPath()
+        {
+            _logger.Logging(message: "This a test message about Logger_SaveLogToFile_WithCustomPath()");
+
+            var location = System.Reflection.Assembly.GetExecutingAssembly().Location;
+            var dir = System.IO.Path.GetDirectoryName(location);
+            var testDir = Path.Combine(dir, "Unit test");
+
+            _logger.SaveLogToFile(testDir);
+
+            var exist = File.Exists(Path.Combine(testDir, "Log.txt"));
+
+            Assert.True(exist);
+        }
+
+        [Test]
+        public void Logger_Clear()
+        {
+            _logger.ClearLog();
+
+            Assert.IsEmpty(_logger.Log);
         }
     }
 }

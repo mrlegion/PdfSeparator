@@ -1,32 +1,58 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using PdfSeparator.Model.Interface;
-using Prism.Mvvm;
 
 namespace PdfSeparator.Model.Components
 {
-    public class Logger : BindableBase, ILogger
+    public class Logger : ILogger
     {
-        private string _log;
+        private Queue<string> _log;
 
-        public string Log
-        {
-            get => _log;
-            set => SetProperty(ref _log, value);
-        }
+        public Queue<string> Log => _log;
 
         public IController Controller { get; set; }
 
+        public Logger()
+        {
+            _log = new Queue<string>();
+        }
+
         public void Logging (string message)
         {
-            if (String.IsNullOrEmpty(Log) || String.IsNullOrWhiteSpace(Log))
-                Log = message;
-            else
-                Log += Environment.NewLine + message;
+            _log.Enqueue(message);
         }
 
         public void SaveLogToFile()
         {
-            throw new NotImplementedException();
+            var location = System.Reflection.Assembly.GetExecutingAssembly().Location;
+            var directory = Path.GetDirectoryName(location);
+
+            SaveLogToFile(directory);
+        }
+
+        public void SaveLogToFile(string directory)
+        {
+            if (!Directory.Exists(directory))
+                Directory.CreateDirectory(directory);
+
+            var file = Path.Combine(directory, "Log.txt");
+
+            var streamFile = File.Create(file);
+            var writer = new StreamWriter(streamFile);
+
+            foreach (string s in Log)
+            {
+                writer.Write($"{s}\n");
+            }
+
+            writer.Close();
+            streamFile.Close();
+        }
+
+        public void ClearLog()
+        {
+            _log.Clear();
         }
     }
 }
