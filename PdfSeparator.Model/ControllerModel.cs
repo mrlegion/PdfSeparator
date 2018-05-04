@@ -36,8 +36,6 @@ namespace PdfSeparator.Model
 
         public bool IsOpen => _pdf.IsOpen;
 
-        public bool IsClose => _pdf.IsClose;
-
         #endregion
 
         #region Construct
@@ -53,6 +51,11 @@ namespace PdfSeparator.Model
         #endregion
 
         #region Impliment IController
+
+        public void ClearFilters()
+        {
+            throw new NotImplementedException();
+        }
 
         public void Notify(IComponent component, Events events, string message)
         {
@@ -81,6 +84,36 @@ namespace PdfSeparator.Model
         }
 
         public void SafeLog(string directory)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Info()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Separate()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AddFilter(FilterItem filter)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AddFilter(IEnumerable<FilterItem> filters)
+        {
+            if (filters == null) throw new ArgumentNullException(nameof(filters));
+
+            foreach (FilterItem filter in filters)
+            {
+                AddFilter(filter);
+            }
+        }
+
+        public void RemoveAtFilter(int id)
         {
             throw new NotImplementedException();
         }

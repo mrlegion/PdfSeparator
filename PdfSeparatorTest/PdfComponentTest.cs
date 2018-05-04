@@ -33,7 +33,13 @@ namespace PdfSeparatorTest
         [Test]
         public void PdfComponent_Close()
         {
+            const string PDF_FILE = @"C:\Users\Alexander\Desktop\ИУС\НАЦИОНАЛЬНЫЕ СТАНДАРТЫ.pdf";
 
+            _pdf.Open(PDF_FILE);
+
+            _pdf.Close();
+
+            Assert.IsFalse(_pdf.IsOpen);
         }
 
         [Test]

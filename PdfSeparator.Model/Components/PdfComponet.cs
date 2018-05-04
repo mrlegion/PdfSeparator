@@ -18,7 +18,6 @@ namespace PdfSeparator.Model.Components
 
         private int _count;
         private bool _isOpen;
-        private bool _isClose;
 
         private Queue<IChapter> _chapters;
 
@@ -27,7 +26,6 @@ namespace PdfSeparator.Model.Components
         public int Count => _count;
 
         public bool IsOpen => _isOpen;
-        public bool IsClose => _isClose;
 
         public IController Controller { get; set; }
 
@@ -53,8 +51,6 @@ namespace PdfSeparator.Model.Components
                 throw new FileNotFoundException();
             }
 
-            FontProgram font = FontProgramFactory.CreateFont("c:/windows/fonts/msgothic.ttc,1");
-
             _reader = new PdfReader(file);
             _document = new PdfDocument(_reader);
             _isOpen = true;
@@ -62,7 +58,15 @@ namespace PdfSeparator.Model.Components
 
         public void Close()
         {
-            throw new NotImplementedException();
+            if (!IsOpen) throw new Exception(message: "Pdf file is not open! Please first load and open file!");
+
+            _document?.Close();
+            _reader?.Close();
+
+            _document = null;
+            _reader = null;
+
+            _isOpen = false;
         }
 
         #endregion

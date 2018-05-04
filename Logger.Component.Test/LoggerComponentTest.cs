@@ -18,9 +18,11 @@ namespace Logger.Component.Test
         [Test]
         public void Logger_Logging()
         {
-            _logger.Logging(message: "This a test message about Logger_RecordTest()");
+            string message = "This a test message about Logger_RecordTest()";
+            _logger.Logging(message: message);
 
             Assert.IsNotEmpty(_logger.Log);
+            Assert.Contains(message, _logger.Log);
         }
 
         [Test]
