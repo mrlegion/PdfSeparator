@@ -34,7 +34,12 @@ namespace Logger.Component.Test
             _logger.Logging(message: "This a test message about Logger_SaveLogToFile()");
 
             var location = System.Reflection.Assembly.GetExecutingAssembly().Location;
-            var dir = System.IO.Path.GetDirectoryName(location);
+            var dir = Path.GetDirectoryName(location);
+
+            if (dir == null)
+            {
+                Assert.Fail("Can select directory! Please check nUnit test");
+            }
 
             _logger.SaveLogToFile();
 
@@ -50,6 +55,12 @@ namespace Logger.Component.Test
 
             var location = System.Reflection.Assembly.GetExecutingAssembly().Location;
             var dir = System.IO.Path.GetDirectoryName(location);
+
+            if (dir == null)
+            {
+                Assert.Fail("Can select directory! Please check nUnit test");
+            }
+
             var testDir = Path.Combine(dir, "Unit test");
 
             _logger.SaveLogToFile(testDir);
