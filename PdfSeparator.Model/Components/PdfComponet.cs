@@ -40,19 +40,24 @@ namespace PdfSeparator.Model.Components
 
         #region Public method
 
-        public void Open(string file)
+        /// <summary>
+        /// Открытие pdf файла и загрузка его в память
+        /// </summary>
+        /// <param name="file">Путь до файла</param>
+        public void Open(FileInfo file)
         {
             if (IsOpen)
                 throw new Exception("Pdf file is ready open! Please first close odl file!");
 
-            if (!File.Exists(file))
-            {
-                _isOpen = false;
-                throw new FileNotFoundException();
-            }
+            //if (!File.Exists(file))
+            //{
+            //    _isOpen = false;
+            //    throw new FileNotFoundException();
+            //}
 
             _reader = new PdfReader(file);
             _document = new PdfDocument(_reader);
+            _count = _document.GetNumberOfPages();
             _isOpen = true;
         }
 

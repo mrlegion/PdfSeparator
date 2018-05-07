@@ -108,7 +108,7 @@ namespace PdfSeparator.ViewModels
                     _filters.Remove(del);
                 }
             });
-
+            
             // Создание комнды для открытия диалогового окна выбора файла
             BrowseCommand = new DelegateCommand(() =>
             {
@@ -132,7 +132,9 @@ namespace PdfSeparator.ViewModels
                     FileOutPath = dialog.FileName;
                 }
 
-                _model.Open(FileOutPath);
+                FileInfo fileInfo = new FileInfo(FileOutPath);
+
+                _model.Open(fileInfo);
             });
 
             // Создание комнды для закрытия формы и приложения

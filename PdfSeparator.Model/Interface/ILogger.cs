@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 
 namespace PdfSeparator.Model.Interface
 {
@@ -7,7 +8,7 @@ namespace PdfSeparator.Model.Interface
         Queue<string> Log { get; }
         void Logging(string message);
         void SaveLogToFile();
-        void SaveLogToFile(string directory);
+        void SaveLogToFile(DirectoryInfo directory);
         void ClearLog();
     }
 }

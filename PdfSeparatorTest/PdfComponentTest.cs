@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,11 +14,14 @@ namespace PdfSeparatorTest
     public class PdfComponentTest
     {
         private IPdf _pdf;
+        private const string PdfFile = @"C:\Users\Alexander\Desktop\AIPC 04.00\M7_92_AIPC_Chapter011_000_RU_04_00.PDF";
+        private FileInfo _fi;
 
         [SetUp]
         public void Init()
         {
             _pdf = new PdfComponet();
+            _fi = new FileInfo(PdfFile);
         }
 
         /// <summary>
@@ -26,9 +30,7 @@ namespace PdfSeparatorTest
         [Test]
         public void PdfComponent_Open()
         {
-            const string PDF_FILE = @"C:\Users\Alexander\Desktop\ИУС\НАЦИОНАЛЬНЫЕ СТАНДАРТЫ.pdf";
-
-            _pdf.Open(PDF_FILE);
+            _pdf.Open(_fi);
 
             Assert.IsTrue(_pdf.IsOpen);
         }
@@ -39,13 +41,11 @@ namespace PdfSeparatorTest
         [Test]
         public void PdfComponent_OpenSecondary()
         {
-            const string PDF_FILE = @"C:\Users\Alexander\Desktop\ИУС\НАЦИОНАЛЬНЫЕ СТАНДАРТЫ.pdf";
-
             // Открываем файл в компоненте
-            _pdf.Open(PDF_FILE);
+            _pdf.Open(_fi);
 
             // Проверяем на исключение при попытке открыть повторно или другой файл в компоненте
-            Assert.Throws<Exception>(() => _pdf.Open(PDF_FILE));
+            Assert.Throws<Exception>(() => _pdf.Open(_fi));
         }
 
         /// <summary>
@@ -54,10 +54,8 @@ namespace PdfSeparatorTest
         [Test]
         public void PdfComponent_Close()
         {
-            const string PDF_FILE = @"C:\Users\Alexander\Desktop\ИУС\НАЦИОНАЛЬНЫЕ СТАНДАРТЫ.pdf";
-
             // Открываем файл в компоненте
-            _pdf.Open(PDF_FILE);
+            _pdf.Open(_fi);
 
             // Закрываем файл в компоненте
             _pdf.Close();
@@ -81,10 +79,8 @@ namespace PdfSeparatorTest
         [Test]
         public void PdfComponent_GetCharpters()
         {
-            const string PDF_FILE = @"C:\Users\Alexander\Desktop\ИУС\НАЦИОНАЛЬНЫЕ СТАНДАРТЫ.pdf";
-            
             // Открываем файл в компоненте
-            _pdf.Open(PDF_FILE);
+            _pdf.Open(_fi);
 
             Assert.IsNotEmpty(_pdf.GetChapters);
         }
@@ -95,10 +91,8 @@ namespace PdfSeparatorTest
         [Test]
         public void PdfComponent_Count()
         {
-            const string PDF_FILE = @"C:\Users\Alexander\Desktop\ИУС\НАЦИОНАЛЬНЫЕ СТАНДАРТЫ.pdf";
-
             // Открываем файл в компоненте
-            _pdf.Open(PDF_FILE);
+            _pdf.Open(_fi);
 
             Assert.AreNotEqual(0, _pdf.Count);
         }

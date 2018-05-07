@@ -56,14 +56,12 @@ namespace Logger.Component.Test
             var location = System.Reflection.Assembly.GetExecutingAssembly().Location;
             var dir = System.IO.Path.GetDirectoryName(location);
 
-            if (dir == null)
-            {
+            if (string.IsNullOrEmpty(dir) || string.IsNullOrWhiteSpace(dir))
                 Assert.Fail("Can select directory! Please check nUnit test");
-            }
 
             var testDir = Path.Combine(dir, "Unit test");
 
-            _logger.SaveLogToFile(testDir);
+            _logger.SaveLogToFile(new DirectoryInfo(testDir));
 
             var exist = File.Exists(Path.Combine(testDir, "Log.txt"));
 

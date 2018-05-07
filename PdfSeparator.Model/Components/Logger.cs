@@ -28,15 +28,17 @@ namespace PdfSeparator.Model.Components
             var location = System.Reflection.Assembly.GetExecutingAssembly().Location;
             var directory = Path.GetDirectoryName(location);
 
-            SaveLogToFile(directory);
+            if (string.IsNullOrEmpty(directory) || string.IsNullOrWhiteSpace(directory))
+                throw new DirectoryNotFoundException(nameof(directory));
+
+            SaveLogToFile(new DirectoryInfo(directory));
         }
 
-        public void SaveLogToFile(string directory)
+        public void SaveLogToFile(DirectoryInfo directory)
         {
-            if (!Directory.Exists(directory))
-                Directory.CreateDirectory(directory);
+            if (!directory.Exists) directory.Create();
 
-            var file = Path.Combine(directory, "Log.txt");
+            var file = Path.Combine(directory.FullName, "Log.txt");
 
             var streamFile = File.Create(file);
             var writer = new StreamWriter(streamFile);

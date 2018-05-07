@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using PdfSeparator.Model.Common;
 
 namespace PdfSeparator.Model.Interface
@@ -8,10 +9,10 @@ namespace PdfSeparator.Model.Interface
     {
         bool IsOpen { get; }
 
-        void Open(string file);
+        void Open(FileInfo file);
         void Close();
         void SafeLog();
-        void SafeLog(string directory);
+        void SafeLog(DirectoryInfo directory);
         void Info();
         void Separate();
         void AddFilter(FilterItem filter);

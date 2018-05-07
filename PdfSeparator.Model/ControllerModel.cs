@@ -68,7 +68,7 @@ namespace PdfSeparator.Model
         /// <param name="message">Сообщение</param>
         public void Log(string message) => _logger.Logging(message: message);
 
-        public void Open(string file)
+        public void Open(FileInfo file)
         {
             _pdf.Open(file: file);
         }
@@ -83,7 +83,7 @@ namespace PdfSeparator.Model
             throw new NotImplementedException();
         }
 
-        public void SafeLog(string directory)
+        public void SafeLog(DirectoryInfo directory)
         {
             throw new NotImplementedException();
         }
