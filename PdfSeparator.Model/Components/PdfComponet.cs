@@ -27,7 +27,7 @@ namespace PdfSeparator.Model.Components
 
         public bool IsOpen => _isOpen;
 
-        public IController Controller { get; set; }
+        public IMediator Controller { get; set; }
 
         #region Construct
 

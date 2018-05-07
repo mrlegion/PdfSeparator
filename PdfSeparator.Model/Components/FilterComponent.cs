@@ -9,6 +9,6 @@ namespace PdfSeparator.Model.Components
 {
     public class FilterComponent : IFilter
     {
-        public IController Controller { get; set; }
+        public IMediator Controller { get; set; }
     }
 }

@@ -11,7 +11,7 @@ namespace PdfSeparator.Model.Components
 
         public Queue<string> Log => _log;
 
-        public IController Controller { get; set; }
+        public IMediator Controller { get; set; }
 
         public Logger()
         {

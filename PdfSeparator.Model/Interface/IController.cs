@@ -5,7 +5,7 @@ using PdfSeparator.Model.Common;
 
 namespace PdfSeparator.Model.Interface
 {
-    public interface IController
+    public interface IController : IMediator
     {
         bool IsOpen { get; }
 
@@ -19,8 +19,5 @@ namespace PdfSeparator.Model.Interface
         void AddFilter(IEnumerable<FilterItem> filters);
         void RemoveAtFilter(int id);
         void ClearFilters();
-
-        void Notify(IComponent component, Events events, string message);
-        void Log(string message);
     }
 }

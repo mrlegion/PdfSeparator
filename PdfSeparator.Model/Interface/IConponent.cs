@@ -2,6 +2,6 @@
 {
     public interface IComponent
     {
-        IController Controller { get; set; }
+        IMediator Controller { get; set; }
     }
 }

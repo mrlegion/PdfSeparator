@@ -108,6 +108,7 @@
     <Compile Include="Interface\IController.cs" />
     <Compile Include="Interface\IFilter.cs" />
     <Compile Include="Interface\ILogger.cs" />
+    <Compile Include="Interface\IMediator.cs" />
     <Compile Include="Interface\IPdf.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
