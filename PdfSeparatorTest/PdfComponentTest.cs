@@ -14,7 +14,7 @@ namespace PdfSeparatorTest
     public class PdfComponentTest
     {
         private IPdfComponent _pdfComponent;
-        private const string PdfFile = @"C:\Users\Alexander\Desktop\AIPC 04.00\M7_92_AIPC_Chapter011_000_RU_04_00.PDF";
+        private const string PdfFile = @"C:\Users\Alexander\Desktop\AMM new.pdf";
         private FileInfo _fi;
 
         [SetUp]
@@ -86,6 +86,21 @@ namespace PdfSeparatorTest
         }
 
         /// <summary>
+        /// Проверка на количество страниц в коллекции глав
+        /// </summary>
+        [Test]
+        public void PdfComponent_CheckCountPage()
+        {
+            // Открываем файл в компоненте
+            _pdfComponent.Open(_fi);
+
+            // Получение количества страниц в очереди
+            var count = _pdfComponent.GetChapters.Sum(chapter => chapter.Count);
+
+            Assert.AreEqual(_pdfComponent.Count, count);
+        }
+
+        /// <summary>
         /// Проверка получения количества страниц в документе
         /// </summary>
         [Test]
@@ -94,7 +109,7 @@ namespace PdfSeparatorTest
             // Открываем файл в компоненте
             _pdfComponent.Open(_fi);
 
-            Assert.AreNotEqual(0, _pdfComponent.Count);
+            Assert.AreEqual(14672, _pdfComponent.Count);
         }
     }
 }

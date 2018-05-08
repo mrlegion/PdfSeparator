@@ -114,6 +114,8 @@
     <Compile Include="Interface\IMediator.cs" />
     <Compile Include="Interface\IPage.cs" />
     <Compile Include="Interface\IPdfComponent.cs" />
+    <Compile Include="Interface\IPrintFile.cs" />
+    <Compile Include="Interface\ISorter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
