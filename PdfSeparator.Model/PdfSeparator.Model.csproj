@@ -97,19 +97,23 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\Chapter.cs" />
     <Compile Include="Common\Events.cs" />
     <Compile Include="Common\FilterItem.cs" />
+    <Compile Include="Common\Page.cs" />
+    <Compile Include="Common\PageOrientation.cs" />
     <Compile Include="Components\FilterComponent.cs" />
-    <Compile Include="Components\Logger.cs" />
-    <Compile Include="Components\PdfComponet.cs" />
+    <Compile Include="Components\LoggerComponent.cs" />
+    <Compile Include="Components\PdfComponent.cs" />
     <Compile Include="ControllerModel.cs" />
     <Compile Include="Interface\IChapter.cs" />
     <Compile Include="Interface\IConponent.cs" />
     <Compile Include="Interface\IController.cs" />
-    <Compile Include="Interface\IFilter.cs" />
-    <Compile Include="Interface\ILogger.cs" />
+    <Compile Include="Interface\IFilterComponent.cs" />
+    <Compile Include="Interface\ILoggerComponent.cs" />
     <Compile Include="Interface\IMediator.cs" />
-    <Compile Include="Interface\IPdf.cs" />
+    <Compile Include="Interface\IPage.cs" />
+    <Compile Include="Interface\IPdfComponent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

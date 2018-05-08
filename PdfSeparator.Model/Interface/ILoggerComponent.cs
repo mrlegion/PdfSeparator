@@ -3,7 +3,7 @@ using System.IO;
 
 namespace PdfSeparator.Model.Interface
 {
-    public interface ILogger : IComponent
+    public interface ILoggerComponent : IComponent
     {
         Queue<string> Log { get; }
         void Logging(string message);

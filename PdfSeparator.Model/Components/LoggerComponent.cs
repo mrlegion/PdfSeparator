@@ -5,7 +5,7 @@ using PdfSeparator.Model.Interface;
 
 namespace PdfSeparator.Model.Components
 {
-    public class Logger : ILogger
+    public class LoggerComponent : ILoggerComponent
     {
         private Queue<string> _log;
 
@@ -13,7 +13,7 @@ namespace PdfSeparator.Model.Components
 
         public IMediator Controller { get; set; }
 
-        public Logger()
+        public LoggerComponent()
         {
             _log = new Queue<string>();
         }

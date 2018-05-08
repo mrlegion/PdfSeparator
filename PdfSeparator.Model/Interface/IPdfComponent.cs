@@ -3,7 +3,7 @@ using System.IO;
 
 namespace PdfSeparator.Model.Interface
 {
-    public interface IPdf : IComponent
+    public interface IPdfComponent : IComponent
     {
         bool IsOpen { get; }
         void Open(FileInfo file);

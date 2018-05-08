@@ -18,23 +18,23 @@ namespace PdfSeparator.Model
         /// <summary>
         /// Компонент управления ведением журнала событий в приложении
         /// </summary>
-        private readonly ILogger _logger;
+        private readonly ILoggerComponent _logger;
 
         /// <summary>
         /// Компонент управления pdf файлами
         /// </summary>
-        private readonly IPdf _pdf;
+        private readonly IPdfComponent _pdfComponent;
 
         /// <summary>
         /// Компонент управления применением фильтров для колекции страниц
         /// </summary>
-        private readonly IFilter _filter;
+        private readonly IFilterComponent _filter;
 
         #endregion
 
         #region Properties
 
-        public bool IsOpen => _pdf.IsOpen;
+        public bool IsOpen => _pdfComponent.IsOpen;
 
         #endregion
 
@@ -43,8 +43,8 @@ namespace PdfSeparator.Model
         public ControllerModel()
         {
             // Инициализация компонентов и передача ссылки на посредника
-            _logger = new Logger() { Controller = this };
-            _pdf = new PdfComponet() { Controller = this };
+            _logger = new LoggerComponent() { Controller = this };
+            _pdfComponent = new PdfComponent() { Controller = this };
             _filter = new FilterComponent() { Controller = this }; 
         }
 
@@ -70,7 +70,7 @@ namespace PdfSeparator.Model
 
         public void Open(FileInfo file)
         {
-            _pdf.Open(file: file);
+            _pdfComponent.Open(file: file);
         }
 
         public void Close()

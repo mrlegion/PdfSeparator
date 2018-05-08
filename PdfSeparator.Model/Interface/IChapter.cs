@@ -1,10 +1,13 @@
-﻿namespace PdfSeparator.Model.Interface
+﻿using System.Collections.Generic;
+
+namespace PdfSeparator.Model.Interface
 {
     public interface IChapter
     {
         string Format { get; set; }
-        int Start { get; set; }
-        int End { get; set; }
-        int Count { get; set; }
+        int Start { get; }
+        int End { get; }
+        int Count { get; }
+        List<IPage> Pages { get; set; }
     }
 }

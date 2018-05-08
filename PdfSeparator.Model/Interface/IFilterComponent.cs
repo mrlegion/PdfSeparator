@@ -1,6 +1,6 @@
 ﻿namespace PdfSeparator.Model.Interface
 {
-    public interface IFilter : IComponent
+    public interface IFilterComponent : IComponent
     {
         
     }

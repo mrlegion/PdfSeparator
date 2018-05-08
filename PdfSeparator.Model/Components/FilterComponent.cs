@@ -7,7 +7,7 @@ using PdfSeparator.Model.Interface;
 
 namespace PdfSeparator.Model.Components
 {
-    public class FilterComponent : IFilter
+    public class FilterComponent : IFilterComponent
     {
         public IMediator Controller { get; set; }
     }

@@ -13,14 +13,14 @@ namespace PdfSeparatorTest
     [TestFixture]
     public class PdfComponentTest
     {
-        private IPdf _pdf;
+        private IPdfComponent _pdfComponent;
         private const string PdfFile = @"C:\Users\Alexander\Desktop\AIPC 04.00\M7_92_AIPC_Chapter011_000_RU_04_00.PDF";
         private FileInfo _fi;
 
         [SetUp]
         public void Init()
         {
-            _pdf = new PdfComponet();
+            _pdfComponent = new PdfComponent();
             _fi = new FileInfo(PdfFile);
         }
 
@@ -30,9 +30,9 @@ namespace PdfSeparatorTest
         [Test]
         public void PdfComponent_Open()
         {
-            _pdf.Open(_fi);
+            _pdfComponent.Open(_fi);
 
-            Assert.IsTrue(_pdf.IsOpen);
+            Assert.IsTrue(_pdfComponent.IsOpen);
         }
 
         /// <summary>
@@ -42,10 +42,10 @@ namespace PdfSeparatorTest
         public void PdfComponent_OpenSecondary()
         {
             // Открываем файл в компоненте
-            _pdf.Open(_fi);
+            _pdfComponent.Open(_fi);
 
             // Проверяем на исключение при попытке открыть повторно или другой файл в компоненте
-            Assert.Throws<Exception>(() => _pdf.Open(_fi));
+            Assert.Throws<Exception>(() => _pdfComponent.Open(_fi));
         }
 
         /// <summary>
@@ -55,12 +55,12 @@ namespace PdfSeparatorTest
         public void PdfComponent_Close()
         {
             // Открываем файл в компоненте
-            _pdf.Open(_fi);
+            _pdfComponent.Open(_fi);
 
             // Закрываем файл в компоненте
-            _pdf.Close();
+            _pdfComponent.Close();
 
-            Assert.IsFalse(_pdf.IsOpen);
+            Assert.IsFalse(_pdfComponent.IsOpen);
         }
 
         /// <summary>
@@ -70,7 +70,7 @@ namespace PdfSeparatorTest
         public void PdfComponent_CloseSecondary()
         {
             // Проверяем на исключение при попытке закрыть повторно файл в компоненте
-            Assert.Throws<Exception>(() => _pdf.Close());
+            Assert.Throws<Exception>(() => _pdfComponent.Close());
         }
 
         /// <summary>
@@ -80,9 +80,9 @@ namespace PdfSeparatorTest
         public void PdfComponent_GetCharpters()
         {
             // Открываем файл в компоненте
-            _pdf.Open(_fi);
+            _pdfComponent.Open(_fi);
 
-            Assert.IsNotEmpty(_pdf.GetChapters);
+            Assert.AreNotEqual(0, _pdfComponent.GetChapters.Count);
         }
 
         /// <summary>
@@ -92,9 +92,9 @@ namespace PdfSeparatorTest
         public void PdfComponent_Count()
         {
             // Открываем файл в компоненте
-            _pdf.Open(_fi);
+            _pdfComponent.Open(_fi);
 
-            Assert.AreNotEqual(0, _pdf.Count);
+            Assert.AreNotEqual(0, _pdfComponent.Count);
         }
     }
 }

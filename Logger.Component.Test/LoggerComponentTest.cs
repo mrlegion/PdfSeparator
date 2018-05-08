@@ -7,12 +7,12 @@ namespace Logger.Component.Test
     [TestFixture]
     public class LoggerComponentTest
     {
-        private ILogger _logger;
+        private ILoggerComponent _logger;
 
         [SetUp]
         public void Init()
         {
-            _logger = new PdfSeparator.Model.Components.Logger();
+            _logger = new PdfSeparator.Model.Components.LoggerComponent();
         }
 
         [Test]
