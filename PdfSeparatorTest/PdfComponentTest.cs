@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
+using PdfSeparator.Model.Common;
 using PdfSeparator.Model.Components;
 using PdfSeparator.Model.Interface;
 
@@ -110,6 +111,27 @@ namespace PdfSeparatorTest
             _pdfComponent.Open(_fi);
 
             Assert.AreEqual(14672, _pdfComponent.Count);
+        }
+
+        /// <summary>
+        /// Проверка разделения документка по форматам
+        /// </summary>
+        [Test]
+        public void PdfComponent_Sepatare()
+        {
+            // Открываем файл в компоненте
+            _pdfComponent.Open(_fi);
+
+            _pdfComponent.Separate(type: SeparateType.InOneFile);
+
+            FileInfo f1 = new FileInfo(@"C:\Users\Alexander\Desktop\AMM new\a3.pdf");
+            FileInfo f2 = new FileInfo(@"C:\Users\Alexander\Desktop\AMM new\a4.pdf");
+
+            if (f1.Exists && f2.Exists)
+                Assert.Pass("Success");
+
+            Assert.Fail("File is not created");
+
         }
     }
 }

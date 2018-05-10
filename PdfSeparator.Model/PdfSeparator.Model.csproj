@@ -102,6 +102,7 @@
     <Compile Include="Common\FilterItem.cs" />
     <Compile Include="Common\Page.cs" />
     <Compile Include="Common\PageOrientation.cs" />
+    <Compile Include="Common\SeparateType.cs" />
     <Compile Include="Components\FilterComponent.cs" />
     <Compile Include="Components\LoggerComponent.cs" />
     <Compile Include="Components\PdfComponent.cs" />
@@ -114,6 +115,7 @@
     <Compile Include="Interface\IMediator.cs" />
     <Compile Include="Interface\IPage.cs" />
     <Compile Include="Interface\IPdfComponent.cs" />
+    <Compile Include="Interface\IPdfSeparateStrategy.cs" />
     <Compile Include="Interface\IPrintFile.cs" />
     <Compile Include="Interface\ISorter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

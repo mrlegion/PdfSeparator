@@ -176,6 +176,19 @@ namespace PdfSeparator.Model.Components
             throw new NotImplementedException();
         }
 
+        public void Separate(SeparateType type)
+        {
+            switch (type)
+            {
+                case SeparateType.InOneFile:
+                    break;
+                case SeparateType.EachInSeparateFile:
+                    break;
+                default:
+                    throw new ArgumentException($"Unknow type for separate: {type.ToString()}");
+            }
+        }
+
         #endregion
     }
 }
