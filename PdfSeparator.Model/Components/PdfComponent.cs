@@ -19,11 +19,6 @@ namespace PdfSeparator.Model.Components
         private PdfReader _reader;
 
         /// <summary>
-        /// Pdf writer on iText
-        /// </summary>
-        private PdfWriter _writer;
-
-        /// <summary>
         /// Pdf Document on iText
         /// </summary>
         private PdfDocument _document;
@@ -39,11 +34,6 @@ namespace PdfSeparator.Model.Components
         private FileInfo _file;
 
         /// <summary>
-        /// Количество страниц в файле
-        /// </summary>
-        private int _count;
-
-        /// <summary>
         /// Значение определяющее открыт ли в данный момент какой-либо файл
         /// </summary>
         private bool _isOpen;
@@ -51,7 +41,7 @@ namespace PdfSeparator.Model.Components
         /// <summary>
         /// Очередь глав в файле
         /// </summary>
-        private Queue<IChapter> _chapters;
+        private readonly Queue<IChapter> _chapters;
 
         /// <summary>
         /// Получение или установка стратегии при разбинии файла по главам
@@ -66,7 +56,7 @@ namespace PdfSeparator.Model.Components
         /// <summary>
         /// Получение количества страниц в файле
         /// </summary>
-        public int Count => _count;
+        public int Count => _document.GetNumberOfPages();
 
         /// <summary>
         /// Получение статуса о состоянии документа
@@ -155,7 +145,6 @@ namespace PdfSeparator.Model.Components
 
             _reader = new PdfReader(file);
             _document = new PdfDocument(_reader);
-            _count = _document.GetNumberOfPages();
             _isOpen = true;
 
             _file = file;

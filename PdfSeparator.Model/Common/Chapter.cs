@@ -4,6 +4,7 @@ using PdfSeparator.Model.Interface;
 
 namespace PdfSeparator.Model.Common
 {
+    // ToDo: Добавить комментарии
     public class Chapter : IChapter
     {
         public string Format { get; set; }
@@ -11,6 +12,7 @@ namespace PdfSeparator.Model.Common
         public int End => Pages.Last().Position;
         public int Count => Pages.Count;
         public List<IPage> Pages { get; set; }
+        public bool AddBlankPageToEnd { get; set; }
 
         public Chapter(string format)
             : this(format: format, pages: new List<IPage>())
