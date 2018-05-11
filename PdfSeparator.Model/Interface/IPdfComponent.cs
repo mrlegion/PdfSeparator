@@ -22,6 +22,11 @@ namespace PdfSeparator.Model.Interface
         int Count { get; }
 
         /// <summary>
+        /// Получение или установка стратегии при разбинии файла по главам
+        /// </summary>
+        IPdfSeparateStrategy SeparateStrategy { get; set; }
+
+        /// <summary>
         /// Октрытие файла в компоненте IPdfComponent
         /// </summary>
         /// <param name="file">Ссылка на файл в виде информационного объекта <seealso cref="FileInfo"/></param>
@@ -40,6 +45,6 @@ namespace PdfSeparator.Model.Interface
         /// <summary>
         /// Разбитие открытого файла по форматам
         /// </summary>
-        void Separate(SeparateType type);
+        void Separate();
     }
 }

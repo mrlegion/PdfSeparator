@@ -117,12 +117,16 @@ namespace PdfSeparatorTest
         /// Проверка разделения документка по форматам
         /// </summary>
         [Test]
-        public void PdfComponent_Sepatare()
+        public void PdfComponent_Sepatare_InOneFile()
         {
             // Открываем файл в компоненте
             _pdfComponent.Open(_fi);
 
-            _pdfComponent.Separate(type: SeparateType.InOneFile);
+            // Добавление новой стратегии
+            _pdfComponent.SeparateStrategy = new InOneFileStrategy();
+
+            // Разделение файла по форматам
+            _pdfComponent.Separate();
 
             FileInfo f1 = new FileInfo(@"C:\Users\Alexander\Desktop\AMM new\a3.pdf");
             FileInfo f2 = new FileInfo(@"C:\Users\Alexander\Desktop\AMM new\a4.pdf");
@@ -131,6 +135,26 @@ namespace PdfSeparatorTest
                 Assert.Pass("Success");
 
             Assert.Fail("File is not created");
+        }
+
+        /// <summary>
+        /// Проверка разделения документка по форматам
+        /// </summary>
+        [Test]
+        public void PdfComponent_Sepatare_EachInSeparateFile()
+        {
+            // Открываем файл в компоненте
+            _pdfComponent.Open(_fi);
+
+            // Добавление новой стратегии
+            _pdfComponent.SeparateStrategy = new EachInSeparateFileStrategy();
+
+            // Разделение файла по форматам
+            _pdfComponent.Separate();
+
+            var fileCount = Directory.GetFiles(@"C:\Users\Alexander\Desktop\AMM new\");
+
+            Assert.IsTrue( _pdfComponent.GetChapters.Count == fileCount.Length );
 
         }
     }

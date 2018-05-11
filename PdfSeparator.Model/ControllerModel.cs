@@ -95,6 +95,7 @@ namespace PdfSeparator.Model
 
         public void Separate()
         {
+            // TODO: Сделать передачу стратегии в PDFComponent тут!
             throw new NotImplementedException();
         }
 

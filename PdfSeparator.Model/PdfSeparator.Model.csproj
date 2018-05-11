@@ -98,8 +98,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\Chapter.cs" />
+    <Compile Include="Common\EachInSeparateFileStrategy.cs" />
     <Compile Include="Common\Events.cs" />
     <Compile Include="Common\FilterItem.cs" />
+    <Compile Include="Common\InOneFileStrategy.cs" />
     <Compile Include="Common\Page.cs" />
     <Compile Include="Common\PageOrientation.cs" />
     <Compile Include="Common\SeparateType.cs" />

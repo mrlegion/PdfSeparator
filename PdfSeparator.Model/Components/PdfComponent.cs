@@ -54,6 +54,11 @@ namespace PdfSeparator.Model.Components
         private Queue<IChapter> _chapters;
 
         /// <summary>
+        /// Получение или установка стратегии при разбинии файла по главам
+        /// </summary>
+        public IPdfSeparateStrategy SeparateStrategy { get; set; }
+
+        /// <summary>
         /// Получение очереди глав в файле
         /// </summary>
         public Queue<IChapter> GetChapters => _chapters;
@@ -87,6 +92,7 @@ namespace PdfSeparator.Model.Components
 
         #region Private Method
         
+        // Todo: подумать о более простой реализации данного метода
         /// <summary>
         /// Заполнение очереди глав
         /// </summary>
@@ -176,17 +182,17 @@ namespace PdfSeparator.Model.Components
             throw new NotImplementedException();
         }
 
-        public void Separate(SeparateType type)
+        public void Separate()
         {
-            switch (type)
-            {
-                case SeparateType.InOneFile:
-                    break;
-                case SeparateType.EachInSeparateFile:
-                    break;
-                default:
-                    throw new ArgumentException($"Unknow type for separate: {type.ToString()}");
-            }
+            // Создаем новый путь
+            var newDirectory = new DirectoryInfo(Path.Combine(path1: _directory.FullName,
+                path2: Path.GetFileNameWithoutExtension(_file.Name)));
+            // Проверяем директорию на сущестование
+            // Todo: сделать пересылку сообщений о существовании директории
+            if (!newDirectory.Exists) newDirectory.Create();
+
+            // Разбеваем файл
+            SeparateStrategy.SeparateFile(document: _document, chapters: GetChapters, directory: newDirectory);
         }
 
         #endregion
