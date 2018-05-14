@@ -100,6 +100,7 @@
     <Compile Include="Common\Chapter.cs" />
     <Compile Include="Common\FIlterStategy\AddBlankPageFilterStrategy.cs" />
     <Compile Include="Common\FIlterStategy\SortByOrientationsFilterStrategy.cs" />
+    <Compile Include="Common\FilterType.cs" />
     <Compile Include="Common\PdfSepatareStrategy\EachInSeparateFileStrategy.cs" />
     <Compile Include="Common\Events.cs" />
     <Compile Include="Common\FilterItem.cs" />

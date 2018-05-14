@@ -96,6 +96,8 @@
     <Compile Include="Components\Filters.xaml.cs">
       <DependentUpon>Filters.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Coverters\IntToFilterTypeConverter.cs" />
+    <Compile Include="Coverters\IntToSeparateTypeConverter.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="Views\Main.xaml.cs">
       <DependentUpon>Main.xaml</DependentUpon>

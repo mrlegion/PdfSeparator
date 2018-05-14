@@ -36,6 +36,10 @@ namespace PdfSeparator.ViewModels
 
         private IController _model;
 
+        private FilterType _filterType;
+
+        private SeparateType _separateType;
+
         #endregion
 
         #region Properties
@@ -81,6 +85,18 @@ namespace PdfSeparator.ViewModels
         /// Получение команды для открытия диалогового окна выбора файла
         /// </summary>
         public DelegateCommand BrowseCommand { get; }
+
+        public FilterType FilterType
+        {
+            get => _filterType;
+            set => SetProperty(ref _filterType, value);
+        }
+
+        public SeparateType SeparateType
+        {
+            get => _separateType;
+            set => SetProperty(ref _separateType, value);
+        }
 
         #endregion
 
