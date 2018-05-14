@@ -5,7 +5,7 @@ using System.Linq;
 using iText.Kernel.Pdf;
 using PdfSeparator.Model.Interface;
 
-namespace PdfSeparator.Model.Common
+namespace PdfSeparator.Model.Common.PdfSepatareStrategy
 {
     public class EachInSeparateFileStrategy : IPdfSeparateStrategy
     {
@@ -15,9 +15,6 @@ namespace PdfSeparator.Model.Common
             var chp = chapters.ToList();
             // Проверяем ее на пустоту
             if (chp == null) throw new ArgumentNullException();
-
-            int f1 = 1;
-            int f2 = 1;
 
             for (int i = 0; i < chp.Count; i++)
             {
@@ -29,7 +26,10 @@ namespace PdfSeparator.Model.Common
 
                 // Копируем диапазон страниц в новый файл
                 document.CopyPagesTo(chp[i].Start, chp[i].End, newDocument);
-                
+                // Проверка на флаг добавления новой страницы в главе
+                // Если есть, то добавляем
+                if (chp[i].AddBlankPageToEnd) newDocument.AddNewPage();
+
                 // Закрытие компонентов
                 newDocument.Close();
                 writer.Close();

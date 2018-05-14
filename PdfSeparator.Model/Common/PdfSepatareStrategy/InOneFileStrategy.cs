@@ -4,14 +4,12 @@ using System.Linq;
 using iText.Kernel.Pdf;
 using PdfSeparator.Model.Interface;
 
-namespace PdfSeparator.Model.Common
+namespace PdfSeparator.Model.Common.PdfSepatareStrategy
 {
     public class InOneFileStrategy : IPdfSeparateStrategy
     {
         public void SeparateFile(PdfDocument document, IEnumerable<IChapter> chapters, DirectoryInfo directory)
         {
-            
-
             // Групперуем коллекцию по форматам
             var formatGroup = from chapter in chapters group chapter by chapter.Format;
 
@@ -27,6 +25,9 @@ namespace PdfSeparator.Model.Common
                 foreach (IChapter chapter in group)
                 {
                     document.CopyPagesTo(chapter.Start, chapter.End, newDocument);
+                    // Проверяем, есть ли флаг на добавлене пустой страницы в конце документа
+                    // если есть, добавляем
+                    if (chapter.AddBlankPageToEnd) newDocument.AddNewPage();
                 }
 
                 newDocument.Close();

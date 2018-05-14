@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using PdfSeparator.Model.Common;
 
 namespace PdfSeparator.Model.Interface
 {
@@ -37,6 +36,7 @@ namespace PdfSeparator.Model.Interface
         /// </summary>
         void Close();
 
+        // ToDo: Создать или удалить данный метод
         /// <summary>
         /// Копирование диапазона страниц в новый pdf файл
         /// </summary>
@@ -45,6 +45,7 @@ namespace PdfSeparator.Model.Interface
         /// <summary>
         /// Разбитие открытого файла по форматам
         /// </summary>
-        void Separate();
+        /// <param name="chapters">Коллекция глав, по которой будет происходить разделение документа</param>
+        void Separate(IEnumerable<IChapter> chapters);
     }
 }

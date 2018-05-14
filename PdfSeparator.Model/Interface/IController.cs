@@ -14,7 +14,7 @@ namespace PdfSeparator.Model.Interface
         void SafeLog();
         void SafeLog(DirectoryInfo directory);
         void Info();
-        void Separate();
+        void Separate(SeparateType type);
         void AddFilter(FilterItem filter);
         void AddFilter(IEnumerable<FilterItem> filters);
         void RemoveAtFilter(int id);

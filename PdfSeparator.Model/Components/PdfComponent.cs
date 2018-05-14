@@ -171,7 +171,8 @@ namespace PdfSeparator.Model.Components
             throw new NotImplementedException();
         }
 
-        public void Separate()
+        // ToDo: сделать преим параметра коллекции IChapters
+        public void Separate(IEnumerable<IChapter> chapters)
         {
             // Создаем новый путь
             var newDirectory = new DirectoryInfo(Path.Combine(path1: _directory.FullName,
@@ -181,7 +182,7 @@ namespace PdfSeparator.Model.Components
             if (!newDirectory.Exists) newDirectory.Create();
 
             // Разбеваем файл
-            SeparateStrategy.SeparateFile(document: _document, chapters: GetChapters, directory: newDirectory);
+            SeparateStrategy.SeparateFile(document: _document, chapters: chapters, directory: newDirectory);
         }
 
         #endregion

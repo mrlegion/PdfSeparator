@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using PdfSeparator.Model.Interface;
 using PdfSeparator.Model.Common;
+using PdfSeparator.Model.Common.PdfSepatareStrategy;
 using PdfSeparator.Model.Components;
 using Prism.Mvvm;
 
@@ -75,17 +76,17 @@ namespace PdfSeparator.Model
 
         public void Close()
         {
-            throw new NotImplementedException();
+            _pdfComponent.Close();
         }
 
         public void SafeLog()
         {
-            throw new NotImplementedException();
+            _logger.SaveLogToFile();
         }
 
         public void SafeLog(DirectoryInfo directory)
         {
-            throw new NotImplementedException();
+            _logger.SaveLogToFile(directory: directory);
         }
 
         public void Info()
@@ -93,10 +94,21 @@ namespace PdfSeparator.Model
             throw new NotImplementedException();
         }
 
-        public void Separate()
+        public void Separate(SeparateType type)
         {
             // TODO: Сделать передачу стратегии в PDFComponent тут!
-            throw new NotImplementedException();
+            switch (type)
+            {
+                case SeparateType.InOneFile:
+                    _pdfComponent.SeparateStrategy = new InOneFileStrategy();
+                    break;
+                case SeparateType.EachInSeparateFile:
+                    _pdfComponent.SeparateStrategy = new EachInSeparateFileStrategy();
+                    break;
+            }
+
+            // ToDo: Добавить объединение с фильтром
+            _pdfComponent.Separate(_pdfComponent.GetChapters);
         }
 
         public void AddFilter(FilterItem filter)

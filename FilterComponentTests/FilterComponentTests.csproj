@@ -5,11 +5,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{9EE2A135-991E-44E9-AEC8-11D21F10A214}</ProjectGuid>
+    <ProjectGuid>{3A596FAB-E04A-43B4-A886-D4AF3C1CE109}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PageEllement.Test</RootNamespace>
-    <AssemblyName>PageEllement.Test</AssemblyName>
+    <RootNamespace>FilterComponentTests</RootNamespace>
+    <AssemblyName>FilterComponentTests</AssemblyName>
     <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>
@@ -46,11 +46,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="PageEllementTest.cs" />
+    <Compile Include="FilterComponentsTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

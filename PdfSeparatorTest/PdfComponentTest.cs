@@ -6,6 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using PdfSeparator.Model.Common;
+using PdfSeparator.Model.Common.FIlterStategy;
+using PdfSeparator.Model.Common.PdfSepatareStrategy;
 using PdfSeparator.Model.Components;
 using PdfSeparator.Model.Interface;
 
@@ -126,7 +128,7 @@ namespace PdfSeparatorTest
             _pdfComponent.SeparateStrategy = new InOneFileStrategy();
 
             // Разделение файла по форматам
-            _pdfComponent.Separate();
+            _pdfComponent.Separate(_pdfComponent.GetChapters);
 
             FileInfo f1 = new FileInfo(@"C:\Users\Alexander\Desktop\AMM new\a3.pdf");
             FileInfo f2 = new FileInfo(@"C:\Users\Alexander\Desktop\AMM new\a4.pdf");
@@ -143,6 +145,7 @@ namespace PdfSeparatorTest
         [Test]
         public void PdfComponent_Sepatare_EachInSeparateFile()
         {
+            
             // Открываем файл в компоненте
             _pdfComponent.Open(_fi);
 
@@ -150,7 +153,7 @@ namespace PdfSeparatorTest
             _pdfComponent.SeparateStrategy = new EachInSeparateFileStrategy();
 
             // Разделение файла по форматам
-            _pdfComponent.Separate();
+            _pdfComponent.Separate(_pdfComponent.GetChapters);
 
             var fileCount = Directory.GetFiles(@"C:\Users\Alexander\Desktop\AMM new\");
 
