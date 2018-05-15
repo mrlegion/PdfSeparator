@@ -59,7 +59,7 @@
                     
                     <Label Grid.Column="0" VerticalContentAlignment="Center" FontSize="14">Параметры деления:</Label>
                     <ComboBox Grid.Column="1" VerticalContentAlignment="Center" 
-                              SelectedIndex="{Binding SeparateType, Converter={StaticResource IntToSeparateTypeConverter}}">
+                              SelectedIndex="{Binding SeparateType, Converter={StaticResource IntToSeparateTypeConverter}, Mode=OneWayToSource}">
                         <ComboBoxItem IsSelected="True">Деление только по форматом</ComboBoxItem>
                         <ComboBoxItem>Каждая глава формата в отдельном файле</ComboBoxItem>
                     </ComboBox>
@@ -73,7 +73,7 @@
 
                     <Label Grid.Column="0" VerticalContentAlignment="Center" FontSize="14">Фильтрация:</Label>
                     <ComboBox Grid.Column="1" VerticalContentAlignment="Center" 
-                              SelectedIndex="{Binding FilterType, Converter={StaticResource IntToFilterTypeConverter}}">
+                              SelectedIndex="{Binding FilterType, Converter={StaticResource IntToFilterTypeConverter}, Mode=OneWayToSource}">
                         <ComboBoxItem IsSelected="True">Добавить пустую страницу в конец</ComboBoxItem>
                         <ComboBoxItem>Ничего не делать</ComboBoxItem>
                     </ComboBox>

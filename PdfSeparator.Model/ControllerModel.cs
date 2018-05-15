@@ -33,9 +33,29 @@ namespace PdfSeparator.Model
 
         #endregion
 
+        #region Fields
+
+        private FilterType _filterType;
+
+        private SeparateType _separateType;
+
+        #endregion
+
         #region Properties
 
         public bool IsOpen => _pdfComponent.IsOpen;
+
+        public FilterType DocumentFilterType
+        {
+            get => _filterType;
+            set => SetProperty(ref _filterType, value);
+        }
+
+        public SeparateType DocumentSeparateType
+        {
+            get => _separateType;
+            set => SetProperty(ref _separateType, value);
+        }
 
         #endregion
 

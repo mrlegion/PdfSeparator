@@ -10,14 +10,17 @@ namespace PdfSeparator.Coverters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            //return (SeparateType) Enum.ToObject(typeof(SeparateType), value ?? throw new ArgumentNullException(nameof(value)));
+            if (value is SeparateType st)
+            {
+                return (int) st;
+            }
+
             return DependencyProperty.UnsetValue;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             return (SeparateType)Enum.ToObject(typeof(SeparateType), value ?? throw new ArgumentNullException(nameof(value)));
-            //return DependencyProperty.UnsetValue;
         }
     }
 }

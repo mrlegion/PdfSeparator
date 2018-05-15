@@ -8,6 +8,8 @@ namespace PdfSeparator.Model.Interface
     public interface IController : IMediator
     {
         bool IsOpen { get; }
+        FilterType DocumentFilterType { get; set; }
+        SeparateType DocumentSeparateType { get; set; }
 
         void Open(FileInfo file);
         void Close();

@@ -6,17 +6,19 @@
         xmlns:local="clr-namespace:PdfSeparator.Views"
         xmlns:usercontrols="clr-namespace:PdfSeparator.Components"
         xmlns:viewmodel="clr-namespace:PdfSeparator.ViewModels"
+        xmlns:converters="clr-namespace:PdfSeparator.Coverters"
         mc:Ignorable="d"
         Title="PdfSeparator" Height="500" Width="450">
-    
+
     <Window.Resources>
         <ResourceDictionary>
+            <converters:IntToSeparateTypeConverter x:Key="IntToSeparateTypeConverter"/>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="../Styles/UserDictionary.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
-    
+
     <Window.DataContext>
         <viewmodel:MainViewModel x:Name="MainViewModel"/>
     </Window.DataContext>
@@ -25,7 +27,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        
+
         <Grid.RowDefinitions>
             <!--Browse line-->
             <RowDefinition Height="70"/>
@@ -44,7 +46,7 @@
 
         <!--Buttons-->
         <Grid Grid.Row="1">
-            
+
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
@@ -52,18 +54,44 @@
             </Grid.ColumnDefinitions>
 
             <Button Grid.Column="0" Content="Инфо"/>
-            <Button Grid.Column="1" Content="Делить документ"/>
+            <Button Grid.Column="1" Content="Делить документ" Command="{Binding SeparateDocumentCommand}" CommandParameter="{Binding SeparateType}"/>
             <Button Grid.Column="2" Content="???"/>
 
         </Grid>
 
         <!--Separate filters-->
-        <usercontrols:Filters Grid.Row="2"/>
+        <Border Grid.Row="2" BorderThickness="0 2 2 2" BorderBrush="SlateGray">
+            <StackPanel Orientation="Vertical" Margin="0 0 10 0">
+                <Label Content="Параметры деления документа:" Style="{StaticResource TitleStyle}"/>
+
+                <Grid Margin="0 5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1.3*"/>
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Column="0" VerticalContentAlignment="Center" FontSize="14">Параметры деления:</Label>
+                    <ComboBox Grid.Column="1" VerticalContentAlignment="Center" Name="SeparateParams" SelectedIndex="{Binding SeparateType, Converter={StaticResource IntToSeparateTypeConverter}, Mode=OneWayToSource}">
+                        <ComboBoxItem IsSelected="True">Деление только по форматом</ComboBoxItem>
+                        <ComboBoxItem>Каждая глава формата в отдельном файле</ComboBoxItem>
+                    </ComboBox>
+                </Grid>
+
+                <Grid Margin="0 5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1.3*"/>
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Column="0" VerticalContentAlignment="Center" FontSize="14">Фильтрация:</Label>
+                    <ComboBox Grid.Column="1" VerticalContentAlignment="Center" Name="FilterParams" ItemsSource="{Binding Filters}">
+                    </ComboBox>
+                </Grid>
+            </StackPanel>
+        </Border>
 
         <!--Log section-->
-        <TextBox Grid.Row="3" Style="{StaticResource LogTextBox}">
-            Ошибок: 0
-        </TextBox>
+        <TextBox Grid.Row="3" Style="{StaticResource LogTextBox}" Text="{Binding Log}"/>
 
         <!--System controls buttons-->
         <Grid Grid.Row="4">

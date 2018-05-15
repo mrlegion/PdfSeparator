@@ -32,13 +32,15 @@ namespace PdfSeparator.ViewModels
         /// <summary>
         /// Колекция фильтров, которые необходимо применить к сортрировке
         /// </summary>
-        private readonly ObservableCollection<FilterItem> _filters;
+        private readonly ObservableCollection<FilterType> _filters;
 
         private IController _model;
 
         private FilterType _filterType;
 
         private SeparateType _separateType;
+
+        
 
         #endregion
 
@@ -60,7 +62,7 @@ namespace PdfSeparator.ViewModels
         /// <summary>
         /// Получение колекции фильтров сортировки
         /// </summary>
-        public ReadOnlyObservableCollection<FilterItem> Filters => new ReadOnlyObservableCollection<FilterItem>(_filters);
+        public ReadOnlyObservableCollection<FilterType> Filters => new ReadOnlyObservableCollection<FilterType>(_filters);
 
         #endregion
 
@@ -86,10 +88,19 @@ namespace PdfSeparator.ViewModels
         /// </summary>
         public DelegateCommand BrowseCommand { get; }
 
+        /// <summary>
+        /// Получение команды для деления документа по форматам
+        /// </summary>
+        public DelegateCommand<object> SeparateDocumentCommand { get; }
+
         public FilterType FilterType
         {
-            get => _filterType;
-            set => SetProperty(ref _filterType, value);
+            get => _model.DocumentFilterType;
+            set
+            {
+                _model.DocumentFilterType = value;
+                RaisePropertyChanged(nameof(FilterType));
+            }
         }
 
         public SeparateType SeparateType
@@ -97,7 +108,7 @@ namespace PdfSeparator.ViewModels
             get => _separateType;
             set => SetProperty(ref _separateType, value);
         }
-
+        
         #endregion
 
         #region Construct
@@ -105,7 +116,7 @@ namespace PdfSeparator.ViewModels
         public MainViewModel()
         {
             // Инициализация коллекции фильтров
-            _filters = new ObservableCollection<FilterItem>();
+            _filters = new ObservableCollection<FilterType>() { FilterType.AddBlankPageToEnd, FilterType.Skip };
 
             // Инициализация бизнес модели
             _model = new ControllerModel();
@@ -113,9 +124,10 @@ namespace PdfSeparator.ViewModels
 
             // Инициализация команд
             // Создание комнды добавления нового фильтра в колекцию
-            AddFilterCommand = new DelegateCommand(() => _filters.Add(new FilterItem()));
+            // AddFilterCommand = new DelegateCommand(() => _filters.Add(new FilterItem()));
 
             // Создание комнды удаления фильтра из колекции
+            /*
             DeleteFilterCommand = new DelegateCommand<object>(o =>
             {
                 var del = (o as FrameworkElement)?.DataContext as FilterItem;
@@ -124,6 +136,7 @@ namespace PdfSeparator.ViewModels
                     _filters.Remove(del);
                 }
             });
+            */
             
             // Создание комнды для открытия диалогового окна выбора файла
             BrowseCommand = new DelegateCommand(() =>
@@ -146,16 +159,24 @@ namespace PdfSeparator.ViewModels
                 {
                     _parent = Path.GetDirectoryName(dialog.FileName);
                     FileOutPath = dialog.FileName;
+                    FileInfo fileInfo = new FileInfo(FileOutPath);
+                    _model.Open(fileInfo);
                 }
+            });
 
-                FileInfo fileInfo = new FileInfo(FileOutPath);
-
-                _model.Open(fileInfo);
+            SeparateDocumentCommand = new DelegateCommand<object>(obj =>
+            {
+                if (obj is SeparateType type)
+                    _model.Separate(type: type);
             });
 
             // Создание комнды для закрытия формы и приложения
             CloseWindowCommand = new DelegateCommand<object>(obj => { if (obj is Window window) window.Close(); });
         }
+
+        #endregion
+
+        #region Private methods
 
         #endregion
     }
