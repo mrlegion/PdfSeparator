@@ -8,7 +8,6 @@ namespace PdfSeparator.Model.Interface
     public interface IController : IMediator
     {
         bool DocumentIsOpened { get; }
-        FilterType DocumentFilterType { get; set; }
         SeparateType DocumentSeparateType { get; set; }
         bool AddBlankPageToEnd { get; set; }
 
@@ -18,9 +17,5 @@ namespace PdfSeparator.Model.Interface
         void SafeLog(DirectoryInfo directory);
         void Info();
         void Separate();
-        void AddFilter(FilterItem filter);
-        void AddFilter(IEnumerable<FilterItem> filters);
-        void RemoveAtFilter(int id);
-        void ClearFilters();
     }
 }

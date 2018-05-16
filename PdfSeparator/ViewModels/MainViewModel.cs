@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using System.Windows;
 using PdfSeparator.Model;
@@ -29,9 +25,7 @@ namespace PdfSeparator.ViewModels
         /// </summary>
         private string _fileOutPath;
         
-        private ControllerModel _model;
-
-        private SeparateType _separateType;
+        private IController _model;
 
         #endregion
 
@@ -58,19 +52,15 @@ namespace PdfSeparator.ViewModels
             set => _model.DocumentSeparateType = value;
         }
 
+        public bool AddBlankPageToEnd
+        {
+            get => _model.AddBlankPageToEnd;
+            set => _model.AddBlankPageToEnd = value;
+        }
+
         #endregion
 
         #region Commands
-
-        /// <summary>
-        /// Получение команды добавления строки фильтров
-        /// </summary>
-        public DelegateCommand AddFilterCommand { get; }
-
-        /// <summary>
-        /// Получение команды для удаления строки фильтров
-        /// </summary>
-        public DelegateCommand<object> DeleteFilterCommand { get; }
 
         /// <summary>
         /// Получение команды для закрытия формы и приложения
@@ -87,12 +77,6 @@ namespace PdfSeparator.ViewModels
         /// </summary>
         public DelegateCommand SeparateDocumentCommand { get; }
 
-        public bool AddBlankPageToEnd
-        {
-            get => _model.AddBlankPageToEnd;
-            set => _model.AddBlankPageToEnd = value;
-        }
-
         #endregion
 
         #region Construct
@@ -102,23 +86,7 @@ namespace PdfSeparator.ViewModels
 
             // Инициализация бизнес модели
             _model = new ControllerModel();
-            _model.PropertyChanged += (sender, args) => RaisePropertyChanged(args.PropertyName);
-
-            // Инициализация команд
-            // Создание комнды добавления нового фильтра в колекцию
-            // AddFilterCommand = new DelegateCommand(() => _filters.Add(new FilterItem()));
-
-            // Создание комнды удаления фильтра из колекции
-            /*
-            DeleteFilterCommand = new DelegateCommand<object>(o =>
-            {
-                var del = (o as FrameworkElement)?.DataContext as FilterItem;
-                if (Filters.Contains(del))
-                {
-                    _filters.Remove(del);
-                }
-            });
-            */
+            ((ControllerModel) _model).PropertyChanged += (sender, args) => RaisePropertyChanged(args.PropertyName);
             
             // Создание комнды для открытия диалогового окна выбора файла
             BrowseCommand = new DelegateCommand(() =>

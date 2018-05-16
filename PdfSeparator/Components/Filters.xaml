@@ -23,29 +23,6 @@
             <StackPanel Orientation="Vertical" Margin="0 0 10 0">
                 <Label Content="Параметры деления документа:" Style="{StaticResource TitleStyle}"/>
 
-                <!--<ItemsControl ItemsSource="{Binding Filters}">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <Grid Height="35">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="2*"/>
-                                    <ColumnDefinition Width="2*"/>
-                                    <ColumnDefinition Width="2*"/>
-                                    <ColumnDefinition Width="1*"/>
-                                </Grid.ColumnDefinitions>
-
-                                <CheckBox Grid.Column="0" IsChecked="{Binding Param1}" Content="Param 1" VerticalContentAlignment="Center"/>
-                                <CheckBox Grid.Column="1" IsChecked="{Binding Param2}" Content="Param 2" VerticalContentAlignment="Center"/>
-                                <CheckBox Grid.Column="2" IsChecked="{Binding Param3}" Content="Param 3" VerticalContentAlignment="Center"/>
-                                <Button Grid.Column="3" Content="X" Height="35" VerticalContentAlignment="Center" Margin="0" 
-                                        Command="{Binding ElementName=UserControl, Path=DataContext.DeleteFilterCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}"/>
-                            </Grid>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>-->
-                
-                <!--<Button Content="Добавить фильтр" Height="40" Margin="2 5" Command="{Binding AddFilterCommand}"/>-->
-
                 <Grid Margin="0 5">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="1.3*"/>
@@ -61,7 +38,7 @@
                 </Grid>
                 
                 <CheckBox FontSize="14" IsEnabled="{Binding AddBlankPageToEnd, Mode=OneWayToSource}"
-                          Content="Добавить пустую страницу в конце нечетных глав?"/>
+                          Content="Добавить пустую страницу в конце нечетных глав?" Margin="5 10 0 10"/>
             </StackPanel>
         </Border>
     </Grid>

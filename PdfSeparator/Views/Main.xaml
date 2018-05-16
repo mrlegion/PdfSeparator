@@ -3,9 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:PdfSeparator.Views"
         xmlns:usercontrols="clr-namespace:PdfSeparator.Components"
-        xmlns:viewmodel="clr-namespace:PdfSeparator.ViewModels"
+        xmlns:viewmodels="clr-namespace:PdfSeparator.ViewModels"
         mc:Ignorable="d"
         Title="PdfSeparator" Height="500" Width="450">
 
@@ -16,15 +15,12 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
-
+    
     <Window.DataContext>
-        <viewmodel:MainViewModel/>
+        <viewmodels:MainViewModel/>
     </Window.DataContext>
 
     <Grid Margin="10">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
             <!--Browse line-->
@@ -62,7 +58,7 @@
         <usercontrols:Filters Grid.Row="2"/>
 
         <!--Log section-->
-        <TextBox Grid.Row="3" Style="{StaticResource LogTextBox}" Text="{Binding Log}"/>
+        <TextBox Grid.Row="3" Style="{StaticResource LogTextBox}" Text="{Binding GetLog, Mode=OneWay}"/>
 
         <!--System controls buttons-->
         <Grid Grid.Row="4">

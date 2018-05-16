@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using PdfSeparator.Model.Interface;
 using PdfSeparator.Model.Common;
 using PdfSeparator.Model.Common.FIlterStategy;
@@ -35,9 +32,7 @@ namespace PdfSeparator.Model
         #endregion
 
         #region Fields
-
-        private FilterType _filterType;
-
+        
         private SeparateType _separateType;
 
         private bool _documentIsOpen;
@@ -54,12 +49,6 @@ namespace PdfSeparator.Model
             private set => SetProperty(ref _documentIsOpen, value);
         }
 
-        public FilterType DocumentFilterType
-        {
-            get => _filterType;
-            set => SetProperty(ref _filterType, value);
-        }
-
         public SeparateType DocumentSeparateType
         {
             get => _separateType;
@@ -71,7 +60,7 @@ namespace PdfSeparator.Model
             get => _addBlankPageToEnd;
             set => SetProperty(ref _addBlankPageToEnd, value);
         }
-
+        
         #endregion
 
         #region Construct
@@ -87,11 +76,6 @@ namespace PdfSeparator.Model
         #endregion
 
         #region Impliment IController
-
-        public void ClearFilters()
-        {
-            throw new NotImplementedException();
-        }
 
         public void Notify(IComponent component, Events events, string message)
         {
@@ -162,26 +146,6 @@ namespace PdfSeparator.Model
             else chapters = _pdfComponent.GetChapters;
 
             _pdfComponent.Separate(chapters);
-        }
-
-        public void AddFilter(FilterItem filter)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void AddFilter(IEnumerable<FilterItem> filters)
-        {
-            if (filters == null) throw new ArgumentNullException(nameof(filters));
-
-            foreach (FilterItem filter in filters)
-            {
-                AddFilter(filter);
-            }
-        }
-
-        public void RemoveAtFilter(int id)
-        {
-            throw new NotImplementedException();
         }
 
         #endregion
