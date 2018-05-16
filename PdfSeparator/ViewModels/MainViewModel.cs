@@ -28,19 +28,10 @@ namespace PdfSeparator.ViewModels
         /// Путь до выбранного файла
         /// </summary>
         private string _fileOutPath;
-
-        /// <summary>
-        /// Колекция фильтров, которые необходимо применить к сортрировке
-        /// </summary>
-        private readonly ObservableCollection<FilterType> _filters;
-
-        private IController _model;
-
-        private FilterType _filterType;
+        
+        private ControllerModel _model;
 
         private SeparateType _separateType;
-
-        
 
         #endregion
 
@@ -59,10 +50,13 @@ namespace PdfSeparator.ViewModels
             }
         }
 
-        /// <summary>
-        /// Получение колекции фильтров сортировки
-        /// </summary>
-        public ReadOnlyObservableCollection<FilterType> Filters => new ReadOnlyObservableCollection<FilterType>(_filters);
+        public bool DocumentIsOpened => _model.DocumentIsOpened;
+
+        public SeparateType DocumentSeparateType
+        {
+            get => _model.DocumentSeparateType;
+            set => _model.DocumentSeparateType = value;
+        }
 
         #endregion
 
@@ -91,36 +85,24 @@ namespace PdfSeparator.ViewModels
         /// <summary>
         /// Получение команды для деления документа по форматам
         /// </summary>
-        public DelegateCommand<object> SeparateDocumentCommand { get; }
+        public DelegateCommand SeparateDocumentCommand { get; }
 
-        public FilterType FilterType
+        public bool AddBlankPageToEnd
         {
-            get => _model.DocumentFilterType;
-            set
-            {
-                _model.DocumentFilterType = value;
-                RaisePropertyChanged(nameof(FilterType));
-            }
+            get => _model.AddBlankPageToEnd;
+            set => _model.AddBlankPageToEnd = value;
         }
 
-        public SeparateType SeparateType
-        {
-            get => _separateType;
-            set => SetProperty(ref _separateType, value);
-        }
-        
         #endregion
 
         #region Construct
 
         public MainViewModel()
         {
-            // Инициализация коллекции фильтров
-            _filters = new ObservableCollection<FilterType>() { FilterType.AddBlankPageToEnd, FilterType.Skip };
 
             // Инициализация бизнес модели
             _model = new ControllerModel();
-            ((ControllerModel) _model).PropertyChanged += (sender, args) => RaisePropertyChanged(args.PropertyName);
+            _model.PropertyChanged += (sender, args) => RaisePropertyChanged(args.PropertyName);
 
             // Инициализация команд
             // Создание комнды добавления нового фильтра в колекцию
@@ -164,11 +146,7 @@ namespace PdfSeparator.ViewModels
                 }
             });
 
-            SeparateDocumentCommand = new DelegateCommand<object>(obj =>
-            {
-                if (obj is SeparateType type)
-                    _model.Separate(type: type);
-            });
+            SeparateDocumentCommand = new DelegateCommand(() => _model.Separate() );
 
             // Создание комнды для закрытия формы и приложения
             CloseWindowCommand = new DelegateCommand<object>(obj => { if (obj is Window window) window.Close(); });

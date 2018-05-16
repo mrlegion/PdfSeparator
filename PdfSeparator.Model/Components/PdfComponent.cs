@@ -151,6 +151,8 @@ namespace PdfSeparator.Model.Components
             _directory = _file.Directory;
             
             FillChapters();
+
+            Controller.Notify(component: this, events: Events.OpenDocument, message: "Документ открыт");
         }
 
         public void Close()

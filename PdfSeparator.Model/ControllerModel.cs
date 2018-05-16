@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using PdfSeparator.Model.Interface;
 using PdfSeparator.Model.Common;
+using PdfSeparator.Model.Common.FIlterStategy;
 using PdfSeparator.Model.Common.PdfSepatareStrategy;
 using PdfSeparator.Model.Components;
 using Prism.Mvvm;
@@ -39,11 +40,19 @@ namespace PdfSeparator.Model
 
         private SeparateType _separateType;
 
+        private bool _documentIsOpen;
+
+        private bool _addBlankPageToEnd;
+
         #endregion
 
         #region Properties
 
-        public bool IsOpen => _pdfComponent.IsOpen;
+        public bool DocumentIsOpened
+        {
+            get => _documentIsOpen;
+            private set => SetProperty(ref _documentIsOpen, value);
+        }
 
         public FilterType DocumentFilterType
         {
@@ -57,6 +66,12 @@ namespace PdfSeparator.Model
             set => SetProperty(ref _separateType, value);
         }
 
+        public bool AddBlankPageToEnd
+        {
+            get => _addBlankPageToEnd;
+            set => SetProperty(ref _addBlankPageToEnd, value);
+        }
+
         #endregion
 
         #region Construct
@@ -66,7 +81,7 @@ namespace PdfSeparator.Model
             // Инициализация компонентов и передача ссылки на посредника
             _logger = new LoggerComponent() { Controller = this };
             _pdfComponent = new PdfComponent() { Controller = this };
-            _filter = new FilterComponent() { Controller = this }; 
+            _filter = new FilterComponent() { Controller = this };
         }
 
         #endregion
@@ -80,7 +95,13 @@ namespace PdfSeparator.Model
 
         public void Notify(IComponent component, Events events, string message)
         {
-            throw new NotImplementedException();
+            switch (events)
+            {
+                case Events.OpenDocument:
+                    DocumentIsOpened = ((IPdfComponent)component).IsOpen;
+                    Log(message: message);
+                    break;
+            }
         }
 
         /// <summary>
@@ -114,21 +135,33 @@ namespace PdfSeparator.Model
             throw new NotImplementedException();
         }
 
-        public void Separate(SeparateType type)
+        public void Separate()
         {
+            // Создаем временную переменую для глав
+            IEnumerable<IChapter> chapters = null;
+
             // TODO: Сделать передачу стратегии в PDFComponent тут!
-            switch (type)
+            switch (DocumentSeparateType)
             {
+                // Делем документ по форматам в одном файле
                 case SeparateType.InOneFile:
                     _pdfComponent.SeparateStrategy = new InOneFileStrategy();
                     break;
+                // Делем документ по форматам в очередности глав, каждая глава в отдельном файле
                 case SeparateType.EachInSeparateFile:
                     _pdfComponent.SeparateStrategy = new EachInSeparateFileStrategy();
                     break;
             }
 
-            // ToDo: Добавить объединение с фильтром
-            _pdfComponent.Separate(_pdfComponent.GetChapters);
+            // Проверяем необходимость применять фильтр
+            if (AddBlankPageToEnd)
+            {
+                _filter.FilterStrategy = new AddBlankPageFilterStrategy();
+                chapters = _filter.ApplyFilters(_pdfComponent.GetChapters);
+            }
+            else chapters = _pdfComponent.GetChapters;
+
+            _pdfComponent.Separate(chapters);
         }
 
         public void AddFilter(FilterItem filter)
@@ -155,7 +188,7 @@ namespace PdfSeparator.Model
 
         #region Control methods
 
-        
+
 
         #endregion
     }

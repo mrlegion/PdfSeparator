@@ -11,17 +11,12 @@
     
     <UserControl.Resources>
         <ResourceDictionary>
-            <converters:IntToFilterTypeConverter x:Key="IntToFilterTypeConverter"/>
             <converters:IntToSeparateTypeConverter x:Key="IntToSeparateTypeConverter"/>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="../Styles/UserDictionary.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    
-    <UserControl.DataContext>
-        <viewmodel:MainViewModel x:Name="MainViewModel"/>
-    </UserControl.DataContext>
 
     <Grid d:DataContext="{d:DesignInstance viewmodel:MainViewModel}">
         <Border BorderThickness="0 2 2 2" BorderBrush="SlateGray">
@@ -59,25 +54,14 @@
                     
                     <Label Grid.Column="0" VerticalContentAlignment="Center" FontSize="14">Параметры деления:</Label>
                     <ComboBox Grid.Column="1" VerticalContentAlignment="Center" 
-                              SelectedIndex="{Binding SeparateType, Converter={StaticResource IntToSeparateTypeConverter}, Mode=OneWayToSource}">
-                        <ComboBoxItem IsSelected="True">Деление только по форматом</ComboBoxItem>
-                        <ComboBoxItem>Каждая глава формата в отдельном файле</ComboBoxItem>
+                              SelectedIndex="{Binding DocumentSeparateType, Converter={StaticResource IntToSeparateTypeConverter}, Mode=OneWayToSource}">
+                        <ComboBoxItem IsSelected="True">В одном файле каждый формат</ComboBoxItem>
+                        <ComboBoxItem>Каждую главу форматов в отдельном файле</ComboBoxItem>
                     </ComboBox>
                 </Grid>
-
-                <Grid Margin="0 5">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1.3*"/>
-                        <ColumnDefinition Width="2*"/>
-                    </Grid.ColumnDefinitions>
-
-                    <Label Grid.Column="0" VerticalContentAlignment="Center" FontSize="14">Фильтрация:</Label>
-                    <ComboBox Grid.Column="1" VerticalContentAlignment="Center" 
-                              SelectedIndex="{Binding FilterType, Converter={StaticResource IntToFilterTypeConverter}, Mode=OneWayToSource}">
-                        <ComboBoxItem IsSelected="True">Добавить пустую страницу в конец</ComboBoxItem>
-                        <ComboBoxItem>Ничего не делать</ComboBoxItem>
-                    </ComboBox>
-                </Grid>
+                
+                <CheckBox FontSize="14" IsEnabled="{Binding AddBlankPageToEnd, Mode=OneWayToSource}"
+                          Content="Добавить пустую страницу в конце нечетных глав?"/>
             </StackPanel>
         </Border>
     </Grid>
