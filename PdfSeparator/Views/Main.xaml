@@ -5,8 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:usercontrols="clr-namespace:PdfSeparator.Components"
         xmlns:viewmodels="clr-namespace:PdfSeparator.ViewModels"
-        mc:Ignorable="d"
-        Title="PdfSeparator" Height="500" Width="450">
+        mc:Ignorable="d" WindowStartupLocation="CenterScreen"
+        Title="PdfSeparator" Height="500" Width="450"
+        IsEnabled="{Binding MainWindowEnabled, Mode=OneWay}">
 
     <Window.Resources>
         <ResourceDictionary>

@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
+using System.Threading;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using System.Windows;
 using PdfSeparator.Model;
 using PdfSeparator.Model.Common;
 using PdfSeparator.Model.Interface;
+using PdfSeparator.Views;
 using Prism.Commands;
 using Prism.Mvvm;
 
@@ -26,6 +29,14 @@ namespace PdfSeparator.ViewModels
         private string _fileOutPath;
         
         private IController _model;
+
+        private BackgroundWorker _worker;
+
+        private int _workProgress;
+
+        private Process _processWindow;
+
+        private bool _mainWindowEnabled = true;
 
         #endregion
 
@@ -77,17 +88,41 @@ namespace PdfSeparator.ViewModels
         /// </summary>
         public DelegateCommand SeparateDocumentCommand { get; }
 
+        public int WorkProgress
+        {
+            get => _workProgress;
+            set => SetProperty(ref _workProgress, value);
+        }
+
+        public bool MainWindowEnabled
+        {
+            get => _mainWindowEnabled;
+            set => SetProperty(ref _mainWindowEnabled, value);
+        }
+
         #endregion
 
         #region Construct
 
         public MainViewModel()
         {
-
             // Инициализация бизнес модели
             _model = new ControllerModel();
             ((ControllerModel) _model).PropertyChanged += (sender, args) => RaisePropertyChanged(args.PropertyName);
             
+            _worker = new BackgroundWorker()
+            {
+                WorkerReportsProgress = true,
+                WorkerSupportsCancellation = true,
+            };
+
+            _worker.DoWork += WorkerOnDoWork;
+            _worker.RunWorkerCompleted += (sender, args) =>
+            {
+                _processWindow.Close();
+                MainWindowEnabled = !_worker.IsBusy;
+            };
+
             // Создание комнды для открытия диалогового окна выбора файла
             BrowseCommand = new DelegateCommand(() =>
             {
@@ -109,15 +144,27 @@ namespace PdfSeparator.ViewModels
                 {
                     _parent = Path.GetDirectoryName(dialog.FileName);
                     FileOutPath = dialog.FileName;
-                    FileInfo fileInfo = new FileInfo(FileOutPath);
-                    _model.Open(fileInfo);
+                    //FileInfo fileInfo = new FileInfo(FileOutPath);
+                    //_model.Open(fileInfo);
                 }
+
+                _worker.RunWorkerAsync();
+
+                _processWindow = new Process();
+                _processWindow.Show();
+                MainWindowEnabled = !_worker.IsBusy;
             });
 
             SeparateDocumentCommand = new DelegateCommand(() => _model.Separate() );
 
             // Создание комнды для закрытия формы и приложения
             CloseWindowCommand = new DelegateCommand<object>(obj => { if (obj is Window window) window.Close(); });
+        }
+
+        private void WorkerOnDoWork(object sender, DoWorkEventArgs e)
+        {
+            FileInfo fileInfo = new FileInfo(FileOutPath);
+            _model.Open(fileInfo);
         }
 
         #endregion
