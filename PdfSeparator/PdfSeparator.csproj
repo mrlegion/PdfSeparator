@@ -74,6 +74,9 @@
     <Reference Include="Costura, Version=2.0.1.0, Culture=neutral, PublicKeyToken=9919ef960d84173d, processorArchitecture=MSIL">
       <HintPath>..\packages\Costura.Fody.2.0.1\lib\net452\Costura.dll</HintPath>
     </Reference>
+    <Reference Include="GongSolutions.Wpf.DragDrop, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\gong-wpf-dragdrop.1.1.0\lib\net46\GongSolutions.Wpf.DragDrop.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.WindowsAPICodePack, Version=1.1.3.2, Culture=neutral, PublicKeyToken=8985beaab7ea3f04, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft-WindowsAPICodePack-Core.1.1.3.2\lib\net462\Microsoft.WindowsAPICodePack.dll</HintPath>
     </Reference>
@@ -123,6 +126,7 @@
     <Compile Include="Components\Filters.xaml.cs">
       <DependentUpon>Filters.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Coverters\BoolReversConverter.cs" />
     <Compile Include="Coverters\IntToFilterTypeConverter.cs" />
     <Compile Include="Coverters\IntToSeparateTypeConverter.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
@@ -193,6 +197,7 @@
     <Resource Include="Images\process-animation.gif" />
     <Resource Include="Images\pdf.png" />
     <Resource Include="Images\pdf.ico" />
+    <Resource Include="Images\Group 5.png" />
     <Content Include="MVVMBase.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -14,7 +14,7 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <Grid d:DataContext="{d:DesignInstance viewmodel:MainViewModel}">
+    <Grid d:DataContext="{d:DesignInstance viewmodel:MainViewModel}" AllowDrop="True">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="1*"/>

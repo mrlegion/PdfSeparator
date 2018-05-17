@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Configuration;
-using System.Data;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 using PdfSeparator.Model;
 using PdfSeparator.Model.Common;
@@ -19,6 +15,7 @@ namespace PdfSeparator
     /// </summary>
     public partial class App : Application
     {
+        // Модульное окно для прогресса
         Process _proccess;
 
         private void OnStartup(object sender, StartupEventArgs e)
@@ -31,6 +28,7 @@ namespace PdfSeparator
                 _proccess = new Process();
                 startUpApp = false;
 
+                // Инициализация BackgroundWorker
                 var worker = new BackgroundWorker()
                 {
                     WorkerSupportsCancellation = true,
@@ -64,7 +62,7 @@ namespace PdfSeparator
 
             if (startUpApp)
             {
-                Views.Main main = new Main();
+                Main main = new Main();
                 main.Show();
             }
         }

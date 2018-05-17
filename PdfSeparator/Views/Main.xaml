@@ -4,78 +4,85 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:usercontrols="clr-namespace:PdfSeparator.Components"
-        xmlns:viewmodels="clr-namespace:PdfSeparator.ViewModels"
+        xmlns:converters="clr-namespace:PdfSeparator.Coverters"
         mc:Ignorable="d" WindowStartupLocation="CenterScreen"
-        Title="PdfSeparator" Height="350" Width="450" ResizeMode="NoResize"
-        IsEnabled="{Binding MainWindowEnabled, Mode=OneWay}">
+        Title="PdfSeparator" Height="350" Width="450" ResizeMode="NoResize" AllowDrop="True"
+        IsEnabled="{Binding MainWindowEnabled, Mode=OneWay}" DragEnter="DragEnterHandler" DragLeave="DragLeaveHandler">
 
     <Window.Resources>
         <ResourceDictionary>
+            <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+            <converters:BoolReverseConverter x:Key="BoolReverseConverter"/>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="../Styles/UserDictionary.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
 
-    <Window.DataContext>
-        <viewmodels:MainViewModel/>
-    </Window.DataContext>
+    <Grid AllowDrop="True">
+        <Grid Margin="10" IsEnabled="{Binding IsDrop, Converter={StaticResource BoolReverseConverter}}">
+            <Grid.RowDefinitions>
+                <!--Browse line-->
+                <RowDefinition Height="70" />
+                <!--Buttons-->
+                <RowDefinition Height="50" />
+                <!--Separate filters-->
+                <RowDefinition Height="*" />
+                <!--Log section-->
+                <RowDefinition Height="10" />
+                <!--System controls buttons-->
+                <RowDefinition Height="50" />
+            </Grid.RowDefinitions>
 
-    <Grid Margin="10">
-
-        <Grid.RowDefinitions>
             <!--Browse line-->
-            <RowDefinition Height="70"/>
+            <usercontrols:Browse Grid.Row="0" />
+
             <!--Buttons-->
-            <RowDefinition Height="50"/>
+            <Grid Grid.Row="1">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <Button Grid.Column="0" Content="Инфо" IsEnabled="False" />
+                <Button Grid.Column="1" Content="Делить документ" Command="{Binding SeparateDocumentCommand}"
+                        IsEnabled="{Binding DocumentIsOpened, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                <!--ToDo: Реализовать кнопку с доп функцией-->
+                <!--Можно добавить кнопку позже с какой либо информацией-->
+            </Grid>
+
             <!--Separate filters-->
-            <RowDefinition Height="*"/>
+            <usercontrols:Filters Grid.Row="2" />
+
             <!--Log section-->
-            <RowDefinition Height="10"/>
+            <!--<TextBox Grid.Row="3" Style="{StaticResource LogTextBox}" Text="{Binding GetLog, Mode=OneWay}"/>-->
+
             <!--System controls buttons-->
-            <RowDefinition Height="50"/>
-        </Grid.RowDefinitions>
+            <Grid Grid.Row="4">
 
-        <!--Browse line-->
-        <usercontrols:Browse Grid.Row="0"/>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
 
-        <!--Buttons-->
-        <Grid Grid.Row="1">
+                <!--ToDo: Реализовать функции поддержки команд сохранения и очистки журнала событий-->
+                <!--<Button Grid.Column="0" Content="Очистить" IsEnabled="False"/>-->
+                <!--<Button Grid.Column="1" Content="Сохранить" IsEnabled="False"/>-->
+                <Button Grid.Column="2" Content="Закрыть" Command="{Binding CloseWindowCommand}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}" />
 
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-
-            <Button Grid.Column="0" Content="Инфо" IsEnabled="False"/>
-            <Button Grid.Column="1" Content="Делить документ" Command="{Binding SeparateDocumentCommand}"
-                    IsEnabled="{Binding DocumentIsOpened, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
-            <!--ToDo: Реализовать кнопку с доп функцией-->
-            <!--Можно добавить кнопку позже с какой либо информацией-->
-        </Grid>
-
-        <!--Separate filters-->
-        <usercontrols:Filters Grid.Row="2"/>
-
-        <!--Log section-->
-        <!--<TextBox Grid.Row="3" Style="{StaticResource LogTextBox}" Text="{Binding GetLog, Mode=OneWay}"/>-->
-
-        <!--System controls buttons-->
-        <Grid Grid.Row="4">
-
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-
-            <!--ToDo: Реализовать функции поддержки команд сохранения и очистки журнала событий-->
-            <!--<Button Grid.Column="0" Content="Очистить" IsEnabled="False"/>-->
-            <!--<Button Grid.Column="1" Content="Сохранить" IsEnabled="False"/>-->
-            <Button Grid.Column="2" Content="Закрыть" Command="{Binding CloseWindowCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"/>
+            </Grid>
 
         </Grid>
-
+        <StackPanel Background="WhiteSmoke" Visibility="{Binding IsDrop, Converter={StaticResource BooleanToVisibilityConverter}}" AllowDrop="True" Drop="DropEventHandler">
+            <TextBlock FontWeight="SemiBold" FontSize="24" Margin="20 70 20 10" Foreground="SlateGray" 
+                       TextAlignment="Center" TextWrapping="Wrap">
+                Перенесите Pdf файл в данную область и отпустите
+            </TextBlock>
+            <Image Source="../Images/Group 5.png" Width="60" Margin="0 10"/>
+        </StackPanel>
     </Grid>
 </Window>

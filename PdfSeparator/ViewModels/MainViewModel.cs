@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using System.Windows;
+using GongSolutions.Wpf.DragDrop;
 using PdfSeparator.Common;
 using PdfSeparator.Model;
 using PdfSeparator.Model.Common;
@@ -39,8 +41,9 @@ namespace PdfSeparator.ViewModels
 
         private bool _mainWindowEnabled = true;
 
+        private bool _isDrop = false;
+
         // ToDo: УДАЛИТЬ ЭТО НАХЕР И СДЕЛАТЬ ЧЕРЕЗ ПОСЫЛКУ СООБЩЕНИЙ!
-        public Main Window { get; set; }
 
         #endregion
 
@@ -71,6 +74,12 @@ namespace PdfSeparator.ViewModels
         {
             get => _model.AddBlankPageToEnd;
             set => _model.AddBlankPageToEnd = value;
+        }
+
+        public bool IsDrop
+        {
+            get => _isDrop;
+            set => SetProperty(ref _isDrop, value);
         }
 
         #endregion
@@ -125,7 +134,7 @@ namespace PdfSeparator.ViewModels
             _worker.DoWork += WorkerOnDoWork;
             _worker.RunWorkerCompleted += (sender, args) =>
             {
-                _processWindow.Hide();
+                _processWindow.Close();
                 MainWindowEnabled = !_worker.IsBusy;
             };
 
@@ -148,20 +157,20 @@ namespace PdfSeparator.ViewModels
 
                 if (dialog?.ShowDialog() == CommonFileDialogResult.Ok)
                 {
-                    _parent = Path.GetDirectoryName(dialog.FileName);
-                    FileOutPath = dialog.FileName;
+                    Init(file: dialog.FileName);
+
                     // ToDo: Удалить позже этот кусок кода
+                    //_parent = Path.GetDirectoryName(dialog.FileName);
+                    //FileOutPath = dialog.FileName;
                     //FileInfo fileInfo = new FileInfo(FileOutPath);
                     //_model.Open(fileInfo);
                 }
-
-                _worker.RunWorkerAsync(WorkerType.BrowseFileWork);
-                _processWindow.ShowDialog();
             });
 
             SeparateDocumentCommand = new DelegateCommand(() =>
             {
                 _worker.RunWorkerAsync(WorkerType.SeparateFileWork);
+                _processWindow = new Process();
                 _processWindow.ShowDialog();
             });
 
@@ -170,7 +179,7 @@ namespace PdfSeparator.ViewModels
             {
                 if (obj is Window window)
                 {
-                    _processWindow.Close();
+                    _processWindow?.Close();
                     window.Close();
                 }
             });
@@ -197,7 +206,16 @@ namespace PdfSeparator.ViewModels
 
         #endregion
 
-        #region Private methods
+        #region Public Methods
+
+        public void Init(string file)
+        {
+            _parent = Path.GetDirectoryName(file);
+            FileOutPath = file;
+            _worker.RunWorkerAsync(WorkerType.BrowseFileWork);
+            _processWindow.ShowDialog();
+            IsDrop = false;
+        }
 
         #endregion
     }
