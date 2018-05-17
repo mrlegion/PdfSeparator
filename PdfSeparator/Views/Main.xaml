@@ -78,6 +78,8 @@
             </Grid>
 
         </Grid>
+        
+        <!--Todo: Перенести в отдельный компонент-->
         <StackPanel Background="WhiteSmoke" Visibility="{Binding IsDrop, Converter={StaticResource BooleanToVisibilityConverter}}" AllowDrop="True" Drop="DropEventHandler">
             <TextBlock FontWeight="SemiBold" FontSize="24" Margin="20 70 20 10" Foreground="SlateGray" 
                        TextAlignment="Center" TextWrapping="Wrap">
@@ -86,6 +88,7 @@
             <Image Source="../Images/Group 5.png" Width="60" Margin="0 10"/>
         </StackPanel>
 
+        <!--Todo: Перенести в отдельный компонент-->
         <StackPanel Margin="40 100" Background="White" Visibility="{Binding InDuring, Converter={StaticResource BooleanToVisibilityConverter}}">
             <StackPanel.Effect>
                 <DropShadowEffect BlurRadius="40" Direction="0" RenderingBias="Quality" Opacity=".7" />
@@ -95,5 +98,27 @@
 
             <Image gif:ImageBehavior.AnimatedSource="../Images/process-animation.gif" Height="40" Margin="17 0"/>
         </StackPanel>
+
+        <DockPanel Margin="40 87" Background="White" Visibility="Hidden">
+            <DockPanel.Effect>
+                <DropShadowEffect BlurRadius="40" Direction="0" RenderingBias="Quality" Opacity=".7" />
+            </DockPanel.Effect>
+
+            <Label DockPanel.Dock="Top" FontSize="12" FontFamily="Segoe UI" FontWeight="Light" Background="BlueViolet" Foreground="White" Padding="10 5">
+                Наименование модульного окна
+            </Label>
+
+            <TextBlock DockPanel.Dock="Top" Padding="15" TextWrapping="WrapWithOverflow">
+                Директория [ Наименование директории ] существует.
+                Перезаписать директорию?
+            </TextBlock>
+
+            <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 10 15 0" >
+                <Button Content="Да" Width="100" Height="30"/>
+                <Button Content="Нет" Width="100" Height="30"/>
+            </StackPanel>
+
+            <Border DockPanel.Dock="Bottom" VerticalAlignment="Bottom" BorderBrush="BlueViolet" BorderThickness="2"/>
+        </DockPanel>
     </Grid>
 </Window>
