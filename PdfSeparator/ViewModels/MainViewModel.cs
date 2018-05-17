@@ -43,7 +43,7 @@ namespace PdfSeparator.ViewModels
 
         private bool _isDrop = false;
 
-        // ToDo: УДАЛИТЬ ЭТО НАХЕР И СДЕЛАТЬ ЧЕРЕЗ ПОСЫЛКУ СООБЩЕНИЙ!
+        private bool _inDuring = false;
 
         #endregion
 
@@ -80,6 +80,12 @@ namespace PdfSeparator.ViewModels
         {
             get => _isDrop;
             set => SetProperty(ref _isDrop, value);
+        }
+
+        public bool InDuring
+        {
+            get => _inDuring;
+            set => SetProperty(ref _inDuring, value);
         }
 
         #endregion
@@ -123,8 +129,6 @@ namespace PdfSeparator.ViewModels
             _model = new ControllerModel();
             ((ControllerModel) _model).PropertyChanged += (sender, args) => RaisePropertyChanged(args.PropertyName);
 
-            _processWindow = new Process();
-
             _worker = new BackgroundWorker()
             {
                 WorkerReportsProgress = true,
@@ -134,7 +138,10 @@ namespace PdfSeparator.ViewModels
             _worker.DoWork += WorkerOnDoWork;
             _worker.RunWorkerCompleted += (sender, args) =>
             {
-                _processWindow.Close();
+                // Todo: Delete this later
+                // _processWindow.Close();
+
+                InDuring = _worker.IsBusy;
                 MainWindowEnabled = !_worker.IsBusy;
             };
 
@@ -170,8 +177,11 @@ namespace PdfSeparator.ViewModels
             SeparateDocumentCommand = new DelegateCommand(() =>
             {
                 _worker.RunWorkerAsync(WorkerType.SeparateFileWork);
-                _processWindow = new Process();
-                _processWindow.ShowDialog();
+                InDuring = _worker.IsBusy;
+
+                // Todo: Delete this later
+                //_processWindow = new Process();
+                //_processWindow.ShowDialog();
             });
 
             // Создание комнды для закрытия формы и приложения
@@ -179,7 +189,9 @@ namespace PdfSeparator.ViewModels
             {
                 if (obj is Window window)
                 {
-                    _processWindow?.Close();
+                    // Todo: Delete this later
+                    //_processWindow?.Close();
+
                     window.Close();
                 }
             });
@@ -213,7 +225,12 @@ namespace PdfSeparator.ViewModels
             _parent = Path.GetDirectoryName(file);
             FileOutPath = file;
             _worker.RunWorkerAsync(WorkerType.BrowseFileWork);
-            _processWindow.ShowDialog();
+
+            // ToDo: Delete this
+            //_processWindow = new Process();
+            //_processWindow.ShowDialog();
+
+            InDuring = _worker.IsBusy;
             IsDrop = false;
         }
 
