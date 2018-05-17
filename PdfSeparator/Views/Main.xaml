@@ -47,7 +47,8 @@
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
 
-                <Button Grid.Column="0" Content="Инфо" IsEnabled="False" />
+                <Button Grid.Column="0" Content="Инфо" IsEnabled="{Binding DocumentIsOpened, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                        Command="{Binding GetInfoCommand}"/>
                 <Button Grid.Column="1" Content="Делить документ" Command="{Binding SeparateDocumentCommand}"
                         IsEnabled="{Binding DocumentIsOpened, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
                 <!--ToDo: Реализовать кнопку с доп функцией-->

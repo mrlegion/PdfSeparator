@@ -88,6 +88,18 @@ namespace PdfSeparator.ViewModels
             set => SetProperty(ref _inDuring, value);
         }
 
+        public int WorkProgress
+        {
+            get => _workProgress;
+            set => SetProperty(ref _workProgress, value);
+        }
+
+        public bool MainWindowEnabled
+        {
+            get => _mainWindowEnabled;
+            set => SetProperty(ref _mainWindowEnabled, value);
+        }
+
         #endregion
 
         #region Commands
@@ -107,17 +119,10 @@ namespace PdfSeparator.ViewModels
         /// </summary>
         public DelegateCommand SeparateDocumentCommand { get; }
 
-        public int WorkProgress
-        {
-            get => _workProgress;
-            set => SetProperty(ref _workProgress, value);
-        }
-
-        public bool MainWindowEnabled
-        {
-            get => _mainWindowEnabled;
-            set => SetProperty(ref _mainWindowEnabled, value);
-        }
+        /// <summary>
+        /// Получение команды для отображения информации о документе
+        /// </summary>
+        public DelegateCommand GetInfoCommand { get; }
 
         #endregion
 
@@ -183,6 +188,8 @@ namespace PdfSeparator.ViewModels
                 //_processWindow = new Process();
                 //_processWindow.ShowDialog();
             });
+
+            GetInfoCommand = new DelegateCommand(() => { _model.Info(); });
 
             // Создание комнды для закрытия формы и приложения
             CloseWindowCommand = new DelegateCommand<object>(obj =>

@@ -5,6 +5,7 @@ using System.Windows;
 using PdfSeparator.Model.Interface;
 using PdfSeparator.Model.Common;
 using PdfSeparator.Model.Common.FIlterStategy;
+using PdfSeparator.Model.Common.InformerStrategy;
 using PdfSeparator.Model.Common.PdfSepatareStrategy;
 using PdfSeparator.Model.Components;
 using Prism.Mvvm;
@@ -173,7 +174,11 @@ namespace PdfSeparator.Model
         /// </summary>
         public void Info()
         {
-            throw new NotImplementedException();
+            // Задаем стратегию для компонетра Informer
+            _informer.Strategy = new FormatInfoStrategy();
+            // Показываем пользователю диалоговое окно с полученной информацией о файле
+            MessageBox.Show(_informer.GetInformation(_pdfComponent.GetChapters), "Информация о файле",
+                MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         /// <summary>
