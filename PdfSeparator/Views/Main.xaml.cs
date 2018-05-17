@@ -49,8 +49,7 @@ namespace PdfSeparator.Views
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
                 var dragFileList = ((DataObject)e.Data).GetFileDropList().Cast<string>().ToList();
-
-                if (dragFileList.Any(s => s.EndsWith(".pdf") && File.Exists(s)))
+                if (dragFileList.Any(s => s.EndsWith(".pdf", StringComparison.OrdinalIgnoreCase) && File.Exists(s)))
                 {
                     _vm.Init(dragFileList.First());
                     return;

@@ -23,6 +23,7 @@ namespace PdfSeparator
             bool startUpApp = true;
 
             var file = e.Args.FirstOrDefault(s => s.EndsWith(".pdf", StringComparison.OrdinalIgnoreCase) && File.Exists(s));
+
             if (!string.IsNullOrEmpty(file))
             {
                 _proccess = new Process();
