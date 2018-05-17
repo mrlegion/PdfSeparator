@@ -137,8 +137,15 @@ namespace PdfSeparator.Model.Components
         /// <param name="file">Путь до файла</param>
         public void Open(FileInfo file)
         {
+            // ToDo: Продумать более умную систему по контролю открытия файлов
+            // if (IsOpen) throw new Exception("Pdf file is ready open! Please first close odl file!");
+            
+            // Если документ уже открыт следует сделать полный сброс
             if (IsOpen)
-                throw new Exception("Pdf file is ready open! Please first close odl file!");
+            {
+                _chapters.Clear();
+                Close();
+            }
 
             if (!file.Exists)
                 throw new FileNotFoundException($"File: {file.FullName} is not found!");
@@ -155,6 +162,7 @@ namespace PdfSeparator.Model.Components
             Controller.Notify(component: this, events: Events.OpenDocument, message: "Документ открыт");
         }
 
+        // ToDo: Функция по закрытию документов точно нужна?
         public void Close()
         {
             if (!IsOpen) throw new Exception("Pdf file is not open! Please first load and open file!");

@@ -39,6 +39,9 @@ namespace PdfSeparator.ViewModels
 
         private bool _mainWindowEnabled = true;
 
+        // ToDo: УДАЛИТЬ ЭТО НАХЕР И СДЕЛАТЬ ЧЕРЕЗ ПОСЫЛКУ СООБЩЕНИЙ!
+        public Main Window { get; set; }
+
         #endregion
 
         #region Properties
@@ -153,13 +156,13 @@ namespace PdfSeparator.ViewModels
                 }
 
                 _worker.RunWorkerAsync(WorkerType.BrowseFileWork);
-                _processWindow.Show();
+                _processWindow.ShowDialog();
             });
 
             SeparateDocumentCommand = new DelegateCommand(() =>
             {
                 _worker.RunWorkerAsync(WorkerType.SeparateFileWork);
-                _processWindow.Show();
+                _processWindow.ShowDialog();
             });
 
             // Создание комнды для закрытия формы и приложения

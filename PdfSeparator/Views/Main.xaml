@@ -6,7 +6,7 @@
         xmlns:usercontrols="clr-namespace:PdfSeparator.Components"
         xmlns:viewmodels="clr-namespace:PdfSeparator.ViewModels"
         mc:Ignorable="d" WindowStartupLocation="CenterScreen"
-        Title="PdfSeparator" Height="500" Width="450"
+        Title="PdfSeparator" Height="350" Width="450" ResizeMode="NoResize"
         IsEnabled="{Binding MainWindowEnabled, Mode=OneWay}">
 
     <Window.Resources>
@@ -16,7 +16,7 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
-    
+
     <Window.DataContext>
         <viewmodels:MainViewModel/>
     </Window.DataContext>
@@ -31,7 +31,7 @@
             <!--Separate filters-->
             <RowDefinition Height="*"/>
             <!--Log section-->
-            <RowDefinition Height="100"/>
+            <RowDefinition Height="10"/>
             <!--System controls buttons-->
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
@@ -48,18 +48,18 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
-            <Button Grid.Column="0" Content="Инфо"/>
+            <Button Grid.Column="0" Content="Инфо" IsEnabled="False"/>
             <Button Grid.Column="1" Content="Делить документ" Command="{Binding SeparateDocumentCommand}"
                     IsEnabled="{Binding DocumentIsOpened, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
-            <Button Grid.Column="2" Content="???"/>
-
+            <!--ToDo: Реализовать кнопку с доп функцией-->
+            <!--Можно добавить кнопку позже с какой либо информацией-->
         </Grid>
 
         <!--Separate filters-->
         <usercontrols:Filters Grid.Row="2"/>
 
         <!--Log section-->
-        <TextBox Grid.Row="3" Style="{StaticResource LogTextBox}" Text="{Binding GetLog, Mode=OneWay}"/>
+        <!--<TextBox Grid.Row="3" Style="{StaticResource LogTextBox}" Text="{Binding GetLog, Mode=OneWay}"/>-->
 
         <!--System controls buttons-->
         <Grid Grid.Row="4">
@@ -70,8 +70,9 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
-            <!--<Button Grid.Column="0" Content="Button 1"/>
-            <Button Grid.Column="1" Content="Button 2"/>-->
+            <!--ToDo: Реализовать функции поддержки команд сохранения и очистки журнала событий-->
+            <!--<Button Grid.Column="0" Content="Очистить" IsEnabled="False"/>-->
+            <!--<Button Grid.Column="1" Content="Сохранить" IsEnabled="False"/>-->
             <Button Grid.Column="2" Content="Закрыть" Command="{Binding CloseWindowCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"/>
 
         </Grid>
