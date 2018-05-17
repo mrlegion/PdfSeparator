@@ -120,6 +120,7 @@
     <Compile Include="Common\FIlterStategy\AddBlankPageFilterStrategy.cs" />
     <Compile Include="Common\FIlterStategy\SortByOrientationsFilterStrategy.cs" />
     <Compile Include="Common\FilterType.cs" />
+    <Compile Include="Common\InformerStrategy\FormatInfoStrategy.cs" />
     <Compile Include="Common\PdfSepatareStrategy\EachInSeparateFileStrategy.cs" />
     <Compile Include="Common\Events.cs" />
     <Compile Include="Common\FilterItem.cs" />
@@ -128,6 +129,7 @@
     <Compile Include="Common\PageOrientation.cs" />
     <Compile Include="Common\SeparateType.cs" />
     <Compile Include="Components\FilterComponent.cs" />
+    <Compile Include="Components\InformerComponent.cs" />
     <Compile Include="Components\LoggerComponent.cs" />
     <Compile Include="Components\PdfComponent.cs" />
     <Compile Include="ControllerModel.cs" />
@@ -136,6 +138,8 @@
     <Compile Include="Interface\IController.cs" />
     <Compile Include="Interface\IFilterComponent.cs" />
     <Compile Include="Interface\IFilterStrategy.cs" />
+    <Compile Include="Interface\IInformerComponent.cs" />
+    <Compile Include="Interface\IInformerStrategy.cs" />
     <Compile Include="Interface\ILoggerComponent.cs" />
     <Compile Include="Interface\IMediator.cs" />
     <Compile Include="Interface\IPage.cs" />
