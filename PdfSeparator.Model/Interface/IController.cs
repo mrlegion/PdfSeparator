@@ -12,7 +12,6 @@ namespace PdfSeparator.Model.Interface
         bool AddBlankPageToEnd { get; set; }
 
         void Open(FileInfo file);
-        void Close();
         void SafeLog();
         void SafeLog(DirectoryInfo directory);
         void Info();

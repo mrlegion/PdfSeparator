@@ -32,17 +32,6 @@ namespace PdfSeparator.Model.Interface
         void Open(FileInfo file);
 
         /// <summary>
-        /// Закрытие текущего открытого файла в компоненте
-        /// </summary>
-        void Close();
-
-        // ToDo: Создать или удалить данный метод
-        /// <summary>
-        /// Копирование диапазона страниц в новый pdf файл
-        /// </summary>
-        void CopyTo();
-
-        /// <summary>
         /// Разбитие открытого файла по форматам
         /// </summary>
         /// <param name="chapters">Коллекция глав, по которой будет происходить разделение документа</param>

@@ -128,6 +128,20 @@ namespace PdfSeparator.Model.Components
             chapter = null;
         }
 
+        // ToDo: Функция по закрытию документов точно нужна?
+        private void Close()
+        {
+            if (!IsOpen) throw new Exception("Pdf file is not open! Please first load and open file!");
+
+            _document?.Close();
+            _reader?.Close();
+
+            _document = null;
+            _reader = null;
+
+            _isOpen = false;
+        }
+
         #endregion 
 
         #region Public method
@@ -161,25 +175,6 @@ namespace PdfSeparator.Model.Components
             FillChapters();
 
             Controller.Notify(component: this, events: Events.OpenDocument, message: "Документ открыт");
-        }
-
-        // ToDo: Функция по закрытию документов точно нужна?
-        public void Close()
-        {
-            if (!IsOpen) throw new Exception("Pdf file is not open! Please first load and open file!");
-
-            _document?.Close();
-            _reader?.Close();
-
-            _document = null;
-            _reader = null;
-
-            _isOpen = false;
-        }
-
-        public void CopyTo()
-        {
-            throw new NotImplementedException();
         }
 
         // ToDo: сделать преим параметра коллекции IChapters

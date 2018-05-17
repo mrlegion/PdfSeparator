@@ -109,11 +109,6 @@ namespace PdfSeparator.Model
             _pdfComponent.Open(file: file);
         }
 
-        public void Close()
-        {
-            _pdfComponent.Close();
-        }
-
         public void SafeLog()
         {
             _logger.SaveLogToFile();
