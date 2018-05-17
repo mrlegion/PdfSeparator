@@ -19,7 +19,7 @@ namespace PdfSeparator.Model.Common.PdfSepatareStrategy
             for (int i = 0; i < chp.Count; i++)
             {
                 // Создаем информацию о новом файле
-                FileInfo fi = new FileInfo(Path.Combine(directory.FullName, $"{chp[i].Format}_{i + 1}.pdf"));
+                FileInfo fi = new FileInfo(Path.Combine(directory.FullName, $"{chp[i].Name}_{i + 1}.pdf"));
                 // Открываем файл для записи
                 PdfWriter writer = new PdfWriter(fi);
                 PdfDocument newDocument = new PdfDocument(writer);

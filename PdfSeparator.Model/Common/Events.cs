@@ -7,6 +7,8 @@ namespace PdfSeparator.Model.Common
         /// <summary>
         /// Открытие документа в компоненте <seealso cref="IPdfComponent"/>
         /// </summary>
-        OpenDocument = 0,
+        OpenDocument,
+
+        DirectoryIsAlreadyExist,
     }
 }

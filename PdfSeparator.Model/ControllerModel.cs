@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Windows;
 using PdfSeparator.Model.Interface;
 using PdfSeparator.Model.Common;
 using PdfSeparator.Model.Common.FIlterStategy;
@@ -77,7 +78,7 @@ namespace PdfSeparator.Model
 
         #region Impliment IController
 
-        public void Notify(IComponent component, Events events, string message)
+        public bool Notify(IComponent component, Events events, string message)
         {
             switch (events)
             {
@@ -85,7 +86,16 @@ namespace PdfSeparator.Model
                     DocumentIsOpened = ((IPdfComponent)component).IsOpen;
                     Log(message: message);
                     break;
+                case Events.DirectoryIsAlreadyExist:
+                    message = message + Environment.NewLine + "Перезаписать указаную директорию?";
+                    var dialog = MessageBox.Show(messageBoxText: message, caption: "Директория уже существует",
+                        icon: MessageBoxImage.Question, button: MessageBoxButton.YesNo);
+                    if (dialog == MessageBoxResult.Yes)
+                        return true;
+                    else return false;
             }
+
+            return true;
         }
 
         /// <summary>

@@ -10,6 +10,11 @@ namespace PdfSeparator.Model.Interface
         string Format { get; set; }
 
         /// <summary>
+        /// Получение или установка имени для главы
+        /// </summary>
+        string Name { get; }
+
+        /// <summary>
         /// Получение номера страницы начала главы
         /// </summary>
         int Start { get; }

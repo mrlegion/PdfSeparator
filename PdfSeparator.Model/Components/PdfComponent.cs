@@ -89,6 +89,7 @@ namespace PdfSeparator.Model.Components
         private void FillChapters()
         {
             // Объявляем главу
+            // ToDo: добавить имя для глав
             IChapter chapter = null;
 
             // Перебор всех страниц документа
@@ -185,11 +186,22 @@ namespace PdfSeparator.Model.Components
         public void Separate(IEnumerable<IChapter> chapters)
         {
             // Создаем новый путь
-            var newDirectory = new DirectoryInfo(Path.Combine(path1: _directory.FullName,
-                path2: Path.GetFileNameWithoutExtension(_file.Name)));
+            var newDirectory = new DirectoryInfo(Path.Combine(path1: _directory.FullName, path2: Path.GetFileNameWithoutExtension(_file.Name)));
             // Проверяем директорию на сущестование
-            // Todo: сделать пересылку сообщений о существовании директории
-            if (!newDirectory.Exists) newDirectory.Create();
+            if (newDirectory.Exists)
+            {
+                // Если директория существует сообщаем посреднику об этом
+                var result = Controller.Notify(this, Events.DirectoryIsAlreadyExist, $"[ {newDirectory.FullName} ] уже существует!");
+                // Если пользователь указал перезаписать, то очищаем директорию
+                if (result)
+                    newDirectory.Delete(true);
+                // Если пользователь указал на оставление старой директории, то создаем новый пусть с дополнительным прификсом
+                else
+                    newDirectory = new DirectoryInfo(Path.Combine(path1: _directory.FullName, path2: $"{Path.GetFileNameWithoutExtension(_file.Name)}____{Path.GetRandomFileName()}"));
+            }
+
+            // создаем директорию
+            newDirectory.Create();
 
             // Разбеваем файл
             SeparateStrategy.SeparateFile(document: _document, chapters: chapters, directory: newDirectory);

@@ -13,6 +13,11 @@ namespace PdfSeparator.Model.Common
         public string Format { get; set; }
 
         /// <summary>
+        /// Получение или установка имени для главы
+        /// </summary>
+        public string Name => $"{Format}_{Pages.First().Orientation.ToString()}";
+
+        /// <summary>
         /// Получение номера страницы начала главы
         /// </summary>
         public int Start => Pages.First().Position;

@@ -11,7 +11,7 @@ namespace PdfSeparator.Model.Common.PdfSepatareStrategy
         public void SeparateFile(PdfDocument document, IEnumerable<IChapter> chapters, DirectoryInfo directory)
         {
             // Групперуем коллекцию по форматам
-            var formatGroup = from chapter in chapters group chapter by chapter.Format;
+            var formatGroup = from chapter in chapters group chapter by chapter.Name;
 
             foreach (IGrouping<string, IChapter> group in formatGroup)
             {
