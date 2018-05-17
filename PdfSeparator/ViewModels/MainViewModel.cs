@@ -5,6 +5,7 @@ using System.IO;
 using System.Threading;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using System.Windows;
+using PdfSeparator.Common;
 using PdfSeparator.Model;
 using PdfSeparator.Model.Common;
 using PdfSeparator.Model.Interface;
@@ -109,7 +110,9 @@ namespace PdfSeparator.ViewModels
             // Инициализация бизнес модели
             _model = new ControllerModel();
             ((ControllerModel) _model).PropertyChanged += (sender, args) => RaisePropertyChanged(args.PropertyName);
-            
+
+            _processWindow = new Process();
+
             _worker = new BackgroundWorker()
             {
                 WorkerReportsProgress = true,
@@ -119,7 +122,7 @@ namespace PdfSeparator.ViewModels
             _worker.DoWork += WorkerOnDoWork;
             _worker.RunWorkerCompleted += (sender, args) =>
             {
-                _processWindow.Close();
+                _processWindow.Hide();
                 MainWindowEnabled = !_worker.IsBusy;
             };
 
@@ -144,27 +147,49 @@ namespace PdfSeparator.ViewModels
                 {
                     _parent = Path.GetDirectoryName(dialog.FileName);
                     FileOutPath = dialog.FileName;
+                    // ToDo: Удалить позже этот кусок кода
                     //FileInfo fileInfo = new FileInfo(FileOutPath);
                     //_model.Open(fileInfo);
                 }
 
-                _worker.RunWorkerAsync();
-
-                _processWindow = new Process();
+                _worker.RunWorkerAsync(WorkerType.BrowseFileWork);
                 _processWindow.Show();
-                MainWindowEnabled = !_worker.IsBusy;
             });
 
-            SeparateDocumentCommand = new DelegateCommand(() => _model.Separate() );
+            SeparateDocumentCommand = new DelegateCommand(() =>
+            {
+                _worker.RunWorkerAsync(WorkerType.SeparateFileWork);
+                _processWindow.Show();
+            });
 
             // Создание комнды для закрытия формы и приложения
-            CloseWindowCommand = new DelegateCommand<object>(obj => { if (obj is Window window) window.Close(); });
+            CloseWindowCommand = new DelegateCommand<object>(obj =>
+            {
+                if (obj is Window window)
+                {
+                    _processWindow.Close();
+                    window.Close();
+                }
+            });
         }
 
         private void WorkerOnDoWork(object sender, DoWorkEventArgs e)
         {
-            FileInfo fileInfo = new FileInfo(FileOutPath);
-            _model.Open(fileInfo);
+            if (e.Argument is WorkerType type)
+            {
+                MainWindowEnabled = !_worker.IsBusy;
+
+                switch (type)
+                {
+                    case WorkerType.BrowseFileWork:
+                        FileInfo fileInfo = new FileInfo(FileOutPath);
+                        _model.Open(fileInfo);
+                        break;
+                    case WorkerType.SeparateFileWork:
+                        _model.Separate();
+                        break;
+                }
+            }
         }
 
         #endregion
