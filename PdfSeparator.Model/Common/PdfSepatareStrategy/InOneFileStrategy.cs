@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using iText.Kernel.Geom;
 using iText.Kernel.Pdf;
 using PdfSeparator.Model.Interface;
+using Path = System.IO.Path;
 
 namespace PdfSeparator.Model.Common.PdfSepatareStrategy
 {
@@ -27,7 +29,7 @@ namespace PdfSeparator.Model.Common.PdfSepatareStrategy
                     document.CopyPagesTo(chapter.Start, chapter.End, newDocument);
                     // Проверяем, есть ли флаг на добавлене пустой страницы в конце документа
                     // если есть, добавляем
-                    if (chapter.AddBlankPageToEnd) newDocument.AddNewPage();
+                    if (chapter.AddBlankPageToEnd) newDocument.AddNewPage(new PageSize((float)chapter.Pages[0].Width, (float)chapter.Pages[0].Heigth));
                 }
 
                 newDocument.Close();
