@@ -29,7 +29,9 @@ namespace PdfSeparator.Model.Common.PdfSepatareStrategy
                     document.CopyPagesTo(chapter.Start, chapter.End, newDocument);
                     // Проверяем, есть ли флаг на добавлене пустой страницы в конце документа
                     // если есть, добавляем
-                    if (chapter.AddBlankPageToEnd) newDocument.AddNewPage(new PageSize((float)chapter.Pages[0].Width, (float)chapter.Pages[0].Heigth));
+                    if (chapter.AddBlankPageToEnd) newDocument.AddNewPage(
+                        new PageSize((float) (chapter.Pages[0].Width / 0.3528), 
+                                     (float) (chapter.Pages[0].Heigth / 0.3528)));
                 }
 
                 newDocument.Close();

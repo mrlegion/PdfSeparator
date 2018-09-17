@@ -30,7 +30,9 @@ namespace PdfSeparator.Model.Common.PdfSepatareStrategy
                 document.CopyPagesTo(chp[i].Start, chp[i].End, newDocument);
                 // Проверка на флаг добавления новой страницы в главе
                 // Если есть, то добавляем
-                if (chp[i].AddBlankPageToEnd) newDocument.AddNewPage(new PageSize((float)chp[i].Pages[0].Width, (float)chp[i].Pages[0].Heigth));
+                if (chp[i].AddBlankPageToEnd) newDocument.AddNewPage(
+                    new PageSize((float)(chp[i].Pages[0].Width / 0.3528),
+                        (float)(chp[i].Pages[0].Heigth / 0.3528)));
 
                 // Закрытие компонентов
                 newDocument.Close();
